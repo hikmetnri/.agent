@@ -44,6 +44,8 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [-][R] Flutter özel Dashboard "Hızlı Teste Başla": seçili eğitim alanındaki tamamlanmamış `short_test` kategorisini sırayla açar; başarıyla tamamlanan testleri tekrar seçmez
 - [x][F] [-][R] Flutter özel Dashboard "Kaldığın Yerden Devam Et": `last_visited_type` ile konu/test ayrımı yapar; test başarıyla geçildiyse sıradaki tamamlanmamış kısa teste yönlendirir
 - [x][F] [x][R] Kişisel günlük çalışma planı / "Bugün ne yapmalıyım?" kartı: backend plan endpoint'i sınav tarihi, günlük hedef, zayıf konular ve zamanı gelen yanlışlara göre görev üretir; web ve Flutter dashboard bu planı kullanır
+- [x][F] [-][R] Flutter dashboard ilk UI modernizasyon turu: günlük plan "Bugünkü odak" olarak en üste alındı, seri/başarı/yanlış metrikleri ve Hızlı Test/Yanlışlar/Devam Et hızlı aksiyon şeridi eklendi; yanlış ve tekrar sayıları seçili eğitim alanına göre scoped provider üzerinden okunur
+- [x][F] [-][R] Flutter dashboard sınav tarihi chip'i `Bugünkü odak` etiketiyle aynı çerçeve ölçüsüne çekildi; ilk karttaki metin ve metrik sıkışması azaltıldı
 - [-][F] [x][R] React web özel öğrenci dashboard mobil deneyimi Flutter hissine yaklaştırıldı: kompakt topbar, safe-area uyumlu alt nav, dar ekran paddingleri
 - [-][F] [x][R] React web özel dashboard ve sınav navigasyonu Flutter mantığına yaklaştırıldı: alt navdaki Sorular/Sınavlar sekmeleri sınav merkezinin ilgili tablarını açar
 - [-][F] [x][R] React web dashboard önceki akışa yakınlaştırıldı: en üstte kayan "Günün Sözü" şeridi korundu; büyük öğrenci kartı aktif paket, toplam sınav, doğru cevap, seri, bugünkü soru, seviye, sınav özeti ve hızlı erişim aksiyonlarıyla dolduruldu; sağ çalışma panelinde "Bugün Ne Yapmalıyım?", yanlış tekrar ve plan görevleri gösterilir
@@ -130,7 +132,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] İskelton yükleme (skeleton loader)
 - [x][F] [x][R] Renkli avatar initial (kullanıcı adından otomatik renk)
 - [x][F] [x][R] Zaman formatı ("5 dk önce" formatı)
-- [x][F] [-][R] Akış gönderi kartları yenilendi: renkli tür bandı, daha belirgin avatar/header, okunabilir içerik, modern etiketler ve aksiyon barı
+- [x][F] [-][R] Akış gönderi kartları yenilendi: renkli tür bandı, daha belirgin avatar/header, okunabilir içerik ve aksiyon barı; etiketler liste kartında gizlenir, gönderi detayında gösterilir
 - [x][F] [-][R] Akış gönderi kartları kompaktlaştırıldı: padding, avatar, pill, etiket, referans kutusu ve metrik buton boyutları düşürüldü; başlık/icerik tek satır ellipsis davranışına alındı
 - [x][F] [-][R] Feed detay ve liste ekranlarında sunucu medya URL düzeltmeleri yapıldı; backend'den gelen relative media path'ler uygulamada normalize edilir
 - ⚠️ Yeni gönderiler admin onayından sonra (`pending → approved`) yayınlanır
@@ -152,7 +154,8 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 ### Profil Ana Ekranı (Tab Yapısı Kaldırıldı)
 - [x][F] [x][R] CustomScrollView tabanlı dikey profil akışı
 - [x][F] [x][R] Hızlı işlem butonları gridi (Hesap Ayarları, Şifre, Çıkış, Sil)
-- [x][F] [-][R] Flutter profil hızlı erişimleri 3 kolonlu yapıya taşındı; Dersler, Levhalar ve Ayarlar kısayolları eklendi
+- [x][F] [-][R] Flutter profil hızlı erişimleri kişisel merkez düzenine alındı; öne çıkan kartlar İstatistik ve Ayarlar oldu, Dersler/Video/Rozetler/Sıralama/Favoriler/Sürücü Kursu kısayol grubunda kaldı, Destek `Ayarlar & İletişim` altında kaldı; kullanıcı ayarlarına günlük hedef, hatırlatıcı ve sınav tarihini özetleyen üst kart eklendi
+- [x][F] [-][R] Flutter profil kısayollarında Dersler alanının üstüne mevcut ana kategoriyi gösteren `Ana kategori / Değiştir` kartı eklendi; kategori seçimi temizlenip kategori seçim ekranına yönlendirilir
 - [x][F] [x][R] Favoriler ekranına gitmek için üst bar ikonu
 - [x][F] [x][R] Profil sayfasından "Yakındaki Sürücü Kursları" ekranına geçiş; kullanıcının şehir/konum bilgisine göre yakın kursları listeler
 
@@ -168,6 +171,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 
 ### Analytics (Ayrı Sayfa - Premium UI)
 - [x][F] [x][R] Kompakt Streak + Günlük hedef kartları
+- [x][F] [-][R] Flutter Analytics ekranında gün serisi ve günlük soru hedefi sayaçları küçük ekranda da yan yana kalacak şekilde sıkılaştırıldı
 - [x][F] [x][R] 12'li İstatistik Gridi (Sınav ve Soru Özeti & İleri Düzey Analiz)
 - [x][F] [x][R] Yeni Metrikler: Toplam Süre, Doğruluk %, Soru Başına Hız, Toplam Puan
 - [x][F] [x][R] Son 10 sınav bar grafiği

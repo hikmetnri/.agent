@@ -1,0 +1,6 @@
+content/content-images/
+content/signs/
+content/videos/
+content/*.log
+content/*.pid
+.DS_Store

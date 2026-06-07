@@ -39,6 +39,10 @@
 - Admin kontrolü: `role === 'admin'`
 - Online: son 5 dakika içinde aktif
 - Markdown: `react-markdown` önerilir
+- Medya depolama ana kaynağı Cloudinary'dir. Base URL: `https://res.cloudinary.com/drysbbsd1/image/upload/f_auto,q_auto`. Flutter `lib/core/utils/media_url.dart`, React web `src/utils/mediaUrl.js` üzerinden `assets/images/signs/...`, `images/signs/...` ve `signs/...` path'lerini Cloudinary `trafik-levhalari/...` klasörüne; `isg/...` path'lerini Cloudinary `isg/...` klasörüne çevirir.
+- Yeni medya dosyaları uygulama repo asset/public klasörlerine eklenmez. Kullanıcı dosyaları `.agent/content/` altında ilgili inbox klasörüne bırakır; ajan dosyaları Cloudinary'ye yükleyip projede mantıksal path veya doğrudan URL ile kullanıma bağlar. Klasör notları: `.agent/content/README.md`.
+- Cloudinary upload komutları backend projesinden çalışır: `npm run upload:cloudinary-traffic-signs`, `npm run upload:cloudinary-isg-signs` ve gerektiğinde `npm run upload:cloudinary-content`. Genel script `scripts/tools/uploadCloudinarySigns.js`, `CLOUDINARY_UPLOAD_FOLDER` ile farklı hedef klasörleri destekler.
+- Cloudinary klasör standardı: `trafik-levhalari/...` B sınıfı trafik levhaları, `isg/...` iş makinesi / İSG levhaları, `content/...` konu görselleri, `animasyonlar/...` animasyon dosyaları.
 - Günün sözü: mobilde söz metni 350 karakterle sınırlandı; web de aynı sınırı input `maxLength` ve görüntüleme kırpmasıyla uygulamalı. Kayan yazı/fade maskesi harfleri kırpmamalı, özellikle Türkçe karakterlerde kenar payı bırakılmalı.
 - Video eğitimleri için yeni backend endpoint eklenmedi; Flutter tarafı mevcut `Category` kaydını içerik marker'larıyla kullanır. Video kategorileri `content` içinde `@[video_category]`, video kayıtları `content` içinde `@[video](url)` marker'ı ve notlar taşır. Normal kategori listelerinde bu marker'lı kayıtlar filtrelenir.
 - Ders içeriği taslak/yayın/sürüm geçmişi yönetimi React web admin akışıdır. Flutter kullanıcı tarafı yalnızca public kategori endpointlerinden yayınlanmış `content` alanını okur; Flutter admin tarafında taslak UI bilinçli olarak kapsam dışıdır.

@@ -4,7 +4,13 @@
 
 ### Trafik İşaretleri Kütüphanesi
 - [x][F] [x][R] Kategorize edilmiş trafik işaretleri listesi
-- [x][F] [x][R] Görseller local assets'ten (React'te `signs/` klasöründen sunuluyor)
+- [x][F] [x][R] Trafik levhaları Cloudinary `trafik-levhalari/...` klasöründen `f_auto,q_auto` ile yüklenir; Flutter `assets/images/signs/...` path'lerini resolver ile remote URL'ye çevirir, React web `resolveMediaUrl` ile Cloudinary kullanır
+
+### Medya Depolama / Cloudinary
+- [x][F] [x][R] Konu görselleri Cloudinary `content/...` klasöründen yüklenir; Flutter paketinden `assets/content/` ve `assets/images/signs/` çıkarıldı, web build `dist/content` ve `dist/images/signs` klasörlerini temizler
+- [x][F] [x][R] Yeni medya dosyaları proje asset/public klasörlerine değil `.agent/content/` inbox alanına bırakılır; ajan dosyayı uygun Cloudinary klasörüne yükleyip Flutter ve React resolver/veri akışına bağlar
+- [x][F] [x][R] Cloudinary upload scripti backend içinde `scripts/tools/uploadCloudinarySigns.js`; `npm run upload:cloudinary-traffic-signs` trafik levhaları, `npm run upload:cloudinary-isg-signs` İSG/iş makinesi levhaları, `npm run upload:cloudinary-content` konu görselleri için kullanılır
+- [x][F] [x][R] Cloudinary klasör hedefleri: trafik levhaları `trafik-levhalari/...`, ISG/iş makinesi levhaları `isg/...`, konu görselleri `content/...`, animasyon dosyaları `animasyonlar/...`; landing/web menülerinde trafik ve ISG iki ana liste kaynağı olarak kullanılacak
 
 ### Video Eğitimler
 - [x][F] [x][R] Video ders listesi ve detay sayfası (Markdown içinde video desteği mevcut)

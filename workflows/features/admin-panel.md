@@ -6,7 +6,8 @@
    - İçerik (Kategoriler + Sorular + Sözler)
    - Sınavlar
    - İstatistik
-   - Profil / Yönetim Merkezi
+   - Hesap / Admin Araçları
+- [x][F] [-][R] Flutter admin alt navigasyonda `Profil` etiketi `Hesap` olarak netleştirildi; hesap ekranındaki `Yönetim Merkezi` bölümü `Admin Araçları` diline çekildi
 
 ---
 
@@ -21,11 +22,13 @@
 - [x][F] [x][R] Hızlı İşlem Butonları (Sınav Ekle, Duyuru Gönder, Ayarlar)
 - [x][F] [x][R] Hızlı Not Defteri (Admin içi lokal kayıtlı mini notlar)
 - [x][F] [x][R] Sistem Aktiviteleri Zaman Çizelgesi (Loglar - Timeline)
+- [x][F] [-][R] Flutter admin hesap/profil header'ı kompaktlaştırıldı; admin araç kartları daha sıkı iki sütunlu satır düzenine yaklaştırıldı
 
 ### Hızlı Aksiyon Kutuları (Quick Actions)
 - [x][F] [x][R] Bekleyen Gönderiler (Hızlı onay/reddet butonları)
 - [x][F] [x][R] Destek Talepleri özeti (Okundu/Yeni/Yanıtlandı/Kapatıldı durumu)
 - [x][F] [x][R] Destek mesajlaşmasında kullanıcıdan gelen yeni talep ve yanıtlar adminlere in-app + FCM push olarak gider
+- [x][F] [-][R] Flutter destek merkezi yanıt bekleyen/açık talep sayısını başlıkta daha net gösterir; destek kartları daha kompakt ve mobil taşmaya dayanıklı hale getirildi
 - [x][F] [x][R] Şikayetler/Raporlar özeti (Hızlı kapatma eylemi)
 - [x][F] [x][R] Her panel için "Tümü" kısayol navigasyonu
 
@@ -35,11 +38,14 @@
 
 ### Kategoriler
 - [x][F] [x][R] Kategori listesi (Tree View yapısı)
+- [x][F] [-][R] Flutter içerik yönetimi üst tabları ikonlu, kısa ve yatay kaydırılabilir hale getirildi: Kategori, Soru, Söz, Video
+- [x][F] [-][R] Flutter kategori yönetimine `Kategori Ağacı` özet kartı, boş durumda ilk kategori CTA'sı, uzun isim ellipsis'i ve `PRO`/`İçerik var` rozetleri eklendi
 - [x][F] [x][R] Sürükle-bırak sıralama (Framer Motion Reorder)
 - [x][F] [x][R] Ana kategoriler (ehliyet türleri: A, B, C...)
 - [x][F] [x][R] Alt kategori ekleme
 - [x][F] [x][R] Her kategori: isim, renk seçici, ikon seçici, Pro toggle
 - [x][F] [x][R] Markdown içerik editörü (H1/H2/H3 toolbar, kalın/italik, liste, ayraç, kelime sayacı)
+- [x][F] [-][R] Flutter içerik editörü uzun kategori adlarında başlık ellipsis'i kullanır; markdown toolbar yatay kaydırılabilir kalır
 - [x][F] [x][R] İçerikte görsel/video URL desteği
 - [x][F] [x][R] Kaydedilmemiş değişiklik uyarısı
 - [-][F] [x][R] Taslak / yayın / sürüm geçmişi akışı: React admin içerik editöründe taslak kaydet, yayınla ve eski yayınlanmış sürümü yükle; Flutter admin için kapsam dışı bırakıldı, içerik yayın akışı web adminden yönetilecek; backend public kategori endpointleri taslak kayıtları göstermez
@@ -47,6 +53,8 @@
 
 ### Sorular — Kısa Testler
 - [x][F] [x][R] 3 seviyeli accordion: Ana kategori → Alt kategori → Konu
+- [x][F] [-][R] Flutter soru yönetimi alt tabları emoji yerine ikonlu kısa etiketlere çekildi; kontrol satırı küçük ekranda wrap davranışı kazanır
+- [x][F] [-][R] Flutter soru kartları kompakt aksiyon satırlı düzene alındı; doğru/yanlış/başarı rozetleri kısa etiketlerle taşmasız gösterilir
 - [x][F] [x][R] Her konunun altında soru listesi
 - [x][F] [x][R] Soru arama (metin bazlı)
 - [x][F] [x][R] Her soru: metin, şıklar (A/B/C/D), doğru cevap, açıklama, görsel URL
@@ -66,15 +74,16 @@
 ### Sözler (Motivasyon)
 - [x][F] [x][R] Söz listesi: yazar + söz metni
 - [x][F] [x][R] Aktif / Pasif toggle
-- [x][F] [ ][R] Söz metni ekleme/düzenleme alanı 350 karakterle sınırlandı; liste ve dashboard eski uzun kayıtları da 350 karaktere kırparak gösterir
+- [x][F] [x][R] Söz metni ekleme/düzenleme alanı 350 karakterle sınırlandı; liste ve dashboard eski uzun kayıtları da 350 karaktere kırparak gösterir
+- [x][F] [-][R] Flutter söz yönetiminde ekleme/düzenleme modalı klavye ve küçük ekran yüksekliğine karşı scroll güvenli; liste aksiyonları Wrap ile taşmasızdır
 - [x][F] [x][R] Ekle / Düzenle / Sil
 
 ### Videolar
-- [x][F] [ ][R] İçerik yönetimine "Videolar" sekmesi eklendi; Kategoriler, Sorular ve Sözler sekmeleriyle aynı içerik modülünde yer alır
-- [x][F] [ ][R] Video kategorisi oluşturma/düzenleme/silme: kategori adı, açıklama ve PRO toggle desteklenir
-- [x][F] [ ][R] Video ekleme/düzenleme/silme: başlık, açıklama, kategori seçimi, online video bağlantısı/URL, notlar ve PRO toggle desteklenir
-- [x][F] [ ][R] Video listesi kategoriye göre gruplanır; kategori oluşturulmadıysa/kategori seçilmediyse videolar "Kategorisiz" altında gösterilir
-- [x][F] [ ][R] Doğrudan oynatılabilir video linkleri uygulama içinde açılır; YouTube/Vimeo gibi harici bağlantılar dış uygulama/tarayıcı ile açılır
+- [x][F] [x][R] İçerik yönetimine "Videolar" sekmesi eklendi; Kategoriler, Sorular ve Sözler sekmeleriyle aynı içerik modülünde yer alır
+- [x][F] [x][R] Video kategorisi oluşturma/düzenleme/silme: kategori adı, açıklama ve PRO toggle desteklenir
+- [x][F] [x][R] Video ekleme/düzenleme/silme: başlık, açıklama, kategori seçimi, online video bağlantısı/URL, notlar ve PRO toggle desteklenir
+- [x][F] [x][R] Video listesi kategoriye göre gruplanır; kategori oluşturulmadıysa/kategori seçilmediyse videolar "Kategorisiz" altında gösterilir
+- [x][F] [x][R] Doğrudan oynatılabilir video linkleri uygulama içinde açılır; YouTube/Vimeo gibi harici bağlantılar dış uygulama/tarayıcı ile açılır
 
 ---
 
@@ -82,6 +91,7 @@
 - [x][F] [x][R] Sınav listesi
 - [x][F] [x][R] Deneme sınavları ve gerçek sınavlar admin arayüzünde ayrı yönetilir; `mock_exam` ve `real_exam` `testType` değerleri korunur
 - [x][F] [-][R] Flutter admin sınav ekranı modern yönetim görünümüne çekildi: kompakt arama/filtre, özet kartları, inline soru yönetimi, düzenle/sil aksiyonları
+- [x][F] [-][R] Flutter sınav yönetimi başlığı, branş dağılımı ve aksiyon satırları küçük ekranda taşma riskine karşı sıkılaştırıldı
 - [x][F] [x][R] Yeni sınav oluştur: isim, süre, kategori, Pro toggle
 - [x][F] [x][R] Sınava soru ekle/çıkar
 - [x][F] [x][R] Sınav sonuçlarını görüntüle
@@ -119,6 +129,7 @@
 - [x][F] [x][R] Kullanıcı timeline modalı eski event kaydı olmayan kullanıcılar için kayıt/test/yanlış tekrar geçmişini backend verisinden "Geçmiş veri" olarak gösterir
 - [x][F] [x][R] Timeline detayları JSON yerine okunur metin ve etiketlerle gösterilir: kategori, test, puan, doğru/yanlış, süre, durum, tekrar sonucu
 - [x][F] [-][R] Flutter istatistik sayfası modern bölüm rayına taşındı: Genel, Yolculuk, Etkileşim, Konu, Zorluk, Rozetler kartları
+- [x][F] [-][R] Flutter admin istatistik bölüm rayı, yolculuk/kampanya filtre barı ve KPI kartları küçük ekran taşmasına karşı kompaktlaştırıldı
 - [x][F] [-][R] Flutter Genel istatistik sekmesinde karar/komuta özeti eklendi: aktiflik, PRO oranı, bildirim, yeni üye sinyalleri
 
 ### Konu Sekmesi
@@ -133,6 +144,7 @@
 - [x][F] [x][R] Rozet kazanım kriterleri admin panelinden yönetilir: `exam_count`, `question_count`, `correct_count`, `streak`, `daily_goal`, `success_rate`
 - [x][F] [x][R] Rozet kartlarında hedef değeri ve rozeti kazanan kullanıcı sayısı (`earnedCount`) gösterilir
 - [x][F] [x][R] "Kimlerin Aldığını Gör" aksiyonu ile rozeti kazanan kullanıcılar modalda ad, e-posta ve kazanım tarihiyle listelenir
+- [x][F] [x][R] Flutter admin rozet yönetimi React web ile aynı kazanım görünürlüğünü kullanır: satırda `earnedCount`, tıklanınca `/badges/:id/earned-users` modalı
 
 ---
 
@@ -165,6 +177,7 @@
 - [x][F] [x][R] Hedef kitle: Herkes / Pro Üyeler / Ücretsiz / Seçili Kişiler
 - [x][F] [x][R] Form: başlık + mesaj + görsel URL
 - [x][F] [-][R] Flutter duyuru oluşturma formunda gönderim aksiyonu tam genişlik butona taşındı; küçük ekran taşmaları azaltıldı
+- [x][F] [-][R] Flutter duyuru hedef kitle seçimi kompakt segmente çekildi; duyuru geçmişi uzun başlık/gövde için ellipsis kullanır
 - [x][F] [x][R] Duyuru geçmişi: başlık, hedef, kaç kişi, tarih, sil
 - [x][F] [x][R] Broadcast gönderimi hem uygulama içi bildirim oluşturur hem FCM push yollar
 - [x][F] [x][R] Gönderim sonucu: toplam kullanıcı, token sayısı, başarılı push sayısı ve push uyarısı admin panelinde gösterilir
