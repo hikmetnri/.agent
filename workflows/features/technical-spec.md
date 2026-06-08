@@ -43,6 +43,8 @@
 - Yeni medya dosyaları uygulama repo asset/public klasörlerine eklenmez. Kullanıcı dosyaları `.agent/content/` altında ilgili inbox klasörüne bırakır; ajan dosyaları Cloudinary'ye yükleyip projede mantıksal path veya doğrudan URL ile kullanıma bağlar. Klasör notları: `.agent/content/README.md`.
 - Cloudinary upload komutları backend projesinden çalışır: `npm run upload:cloudinary-traffic-signs`, `npm run upload:cloudinary-isg-signs` ve gerektiğinde `npm run upload:cloudinary-content`. Genel script `scripts/tools/uploadCloudinarySigns.js`, `CLOUDINARY_UPLOAD_FOLDER` ile farklı hedef klasörleri destekler.
 - Cloudinary klasör standardı: `trafik-levhalari/...` B sınıfı trafik levhaları, `isg/...` iş makinesi / İSG levhaları, `content/...` konu görselleri, `animasyonlar/...` animasyon dosyaları.
+- Levha kütüphanesi seçimi kullanıcı `selectedCategoryName` değerinden türetilir. Trafik/B sınıfı kategoriler `trafik-levhalari` setini; iş makinesi, operatör, forklift, vinç, kazıcı/yükleyici, kepçe, G sınıfı, İSG veya iş güvenliği ifadeleri `isg` setini kullanır.
+- Flutter levha ekranı İSG SVG dosyalarını doğrudan asset olarak paketlemez; `resolveServerMediaUrl` üzerinden Cloudinary dönüşümlü remote görsel olarak gösterir. Web tarafı da aynı mantıksal path'leri `resolveMediaUrl` ile çözer.
 - Günün sözü: mobilde söz metni 350 karakterle sınırlandı; web de aynı sınırı input `maxLength` ve görüntüleme kırpmasıyla uygulamalı. Kayan yazı/fade maskesi harfleri kırpmamalı, özellikle Türkçe karakterlerde kenar payı bırakılmalı.
 - Video eğitimleri için yeni backend endpoint eklenmedi; Flutter tarafı mevcut `Category` kaydını içerik marker'larıyla kullanır. Video kategorileri `content` içinde `@[video_category]`, video kayıtları `content` içinde `@[video](url)` marker'ı ve notlar taşır. Normal kategori listelerinde bu marker'lı kayıtlar filtrelenir.
 - Ders içeriği taslak/yayın/sürüm geçmişi yönetimi React web admin akışıdır. Flutter kullanıcı tarafı yalnızca public kategori endpointlerinden yayınlanmış `content` alanını okur; Flutter admin tarafında taslak UI bilinçli olarak kapsam dışıdır.
@@ -97,7 +99,9 @@ User {
   proStatus, totalScore, level, avatarUrl, bio,
   fcmToken, isActive, selectedCategoryId, selectedCategoryName,
   lastActiveAt, dailyGoal, notifEnabled, notifHour, notifMinute,
-  earnedBadges[{ badgeId, earnedAt }]
+  earnedBadges[{ badgeId, earnedAt }],
+  aiPromptCount, lastAiPromptAt, aiRewardCredits, premiumQuestionCredits,
+  adUnlockedExamIds[], rewardedAdWatchCount
 }
 
 Category {

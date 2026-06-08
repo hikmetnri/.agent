@@ -76,7 +76,8 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] 3 Sekmeli Yapı: Kısa Testler / Deneme / Yanlışlarım
 - [x][F] [x][R] Kısa Testler sekmesinde Accordion (Modül bazlı aç-kapa) gruplandırma
 - [x][F] [x][R] Tamamlanan konular yeşil işaretlenir
-- [x][F] [x][R] İlk 5 test ücretsiz, sonrası kilitli (Paywall entegrasyonu)
+- [x][F] [x][R] İlk 5 test ücretsiz, sonrası kilitli (Paywall veya Ödüllü Reklam ile kilidi açma seçeneği sunulur)
+- [x][F] [x][R] Kilitli sınav ve kategorileri (PRO veya index >= 5) ödüllü video izleyerek anlık açma (`adUnlockedExamIds` entegrasyonu)
 - [x][F] [x][R] Teste Başla → İşaretleme sonrası anında geri bildirim (Mock mode)
 - [x][F] [x][R] Yanlış cevaplanan sorular için "Doğru Cevap + Açıklama" gösterimi
 - [x][F] [x][R] Deneme sınavları `mock_exam` sorularını `examId` ile çeker; gerçek sınavlardan ayrı listelenir

@@ -5,6 +5,13 @@
 ### Trafik İşaretleri Kütüphanesi
 - [x][F] [x][R] Kategorize edilmiş trafik işaretleri listesi
 - [x][F] [x][R] Trafik levhaları Cloudinary `trafik-levhalari/...` klasöründen `f_auto,q_auto` ile yüklenir; Flutter `assets/images/signs/...` path'lerini resolver ile remote URL'ye çevirir, React web `resolveMediaUrl` ile Cloudinary kullanır
+- [x][F] [x][R] Levha kütüphanesi seçili eğitim kategorisine göre değişir: B sınıfı / trafik kategorileri trafik levhalarını, iş makinesi / operatör / İSG / G sınıfı kategorileri `isg/...` iş sağlığı levhalarını gösterir
+- [x][F] [x][R] İSG / iş makinesi levhaları Türkçe kategori ve başlıklarla listelenir; Flutter tarafında SVG dosyaları Cloudinary dönüşümüyle PNG olarak görüntülenir
+- [x][F] [x][R] Web landing sayfasında levhalar giriş istemeden iki ana kaynak olarak listelenir: Trafik Levhaları ve İş Sağlığı / İş Makinesi Levhaları
+
+### Kullanıcı Profil ve Kategori Yönetimi
+- [x][F] [x][R] Kullanıcı ana sayfa / profil alanında seçili eğitim paketi görünür; PC web görünümünde kategori değiştirme butonu modal kategori seçimini tekrar açar
+- [x][F] [x][R] PC web profil/ayarlar ekranı seçili eğitim, üyelik, konum, günlük hedef, sınav tarihi, profil kontrol listesi ve hızlı işlem kartlarıyla zenginleştirildi
 
 ### Medya Depolama / Cloudinary
 - [x][F] [x][R] Konu görselleri Cloudinary `content/...` klasöründen yüklenir; Flutter paketinden `assets/content/` ve `assets/images/signs/` çıkarıldı, web build `dist/content` ve `dist/images/signs` klasörlerini temizler
@@ -40,3 +47,5 @@
 - [x][F] [x][R] Zayıf konulara özel sınav önerisi (Admin Dashboard stats bazlı öneri)
 - [x][F] [x][R] Adaptif öğrenme: Yanlış yapılan sorulara göre tekrar algoritması
 - [x][F] [x][R] Aralıklı tekrar listesi: `WrongAnswer.reviewStage`, `nextReviewAt`, review geçmişi, 4 doğru sonrası otomatik tamamlandı ve "Öğrendim" akışı
+- [x][F] [x][R] Yapay Zeka Danışmanı: DeepSeek entegrasyonu. Standart kullanıcılar için günlük 20 soru kotası, PRO üyeler için sınırsız sohbet imkanı. Limit dolduğunda PRO üyelik veya video izleme (kredi kazanma) teşviki yapar. Chat geçmişi mobil SharedPreferences veya tarayıcı oturumu bazlı saklanır.
+- [x][F] [x][R] Buzlu Cam & Alt Kayar Panel: Mobil platformda AI sohbet ekranı tüm ekranı kaplamak yerine ekranın %65'i yüksekliğinde şık ve buzlu cam (BackdropFilter) efektli bir alt kayar panel olarak açılır. Açıkken buton kapatma (X) simgesine dönüşür.

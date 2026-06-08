@@ -105,6 +105,14 @@ POST   /wrong-answers/:questionId/review                           ← kullanıc
 POST   /wrong-answers/:questionId/mastered                         ← kullanıcı: soruyu öğrendim olarak işaretle
 DELETE /wrong-answers/:questionId
 
+# AI (Yapay Zeka)
+POST   /ai/chat                      ← kullanıcı: DeepSeek ile chatleşme (Giriş zorunlu, standart üye için günlük limit: 20)
+
+# Rewards & Ads
+GET    /rewards/me                   ← kullanıcı: reklam/ödül durumunu getir (AI kredileri, reklam izleme sayısı vb.)
+POST   /rewards/ad-completed         ← kullanıcı: izlenen reklamı bildir ve ödül al; body: { rewardType: 'ai'|'premium_question', examId? }
+
+
 # Posts (Feed)
 GET    /posts
 POST   /posts
