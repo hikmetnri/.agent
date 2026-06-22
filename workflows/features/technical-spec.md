@@ -46,6 +46,7 @@
 - Levha kütüphanesi seçimi kullanıcı `selectedCategoryName` değerinden türetilir. Trafik/B sınıfı kategoriler `trafik-levhalari` setini; iş makinesi, operatör, forklift, vinç, kazıcı/yükleyici, kepçe, G sınıfı, İSG veya iş güvenliği ifadeleri `isg` setini kullanır.
 - Flutter levha ekranı İSG SVG dosyalarını doğrudan asset olarak paketlemez; `resolveServerMediaUrl` üzerinden Cloudinary dönüşümlü remote görsel olarak gösterir. Web tarafı da aynı mantıksal path'leri `resolveMediaUrl` ile çözer.
 - Günün sözü: mobilde söz metni 350 karakterle sınırlandı; web de aynı sınırı input `maxLength` ve görüntüleme kırpmasıyla uygulamalı. Kayan yazı/fade maskesi harfleri kırpmamalı, özellikle Türkçe karakterlerde kenar payı bırakılmalı.
+- Konu anlatımı sesli okuma: React web `window.speechSynthesis` ile, Flutter ise `flutter_tts` ile aynı Markdown ders metninin temizlenmiş plain-text halini okur; sesli okuma yalnızca mevcut ders içeriği için çalışır, quiz ve admin metinlerine genişletilmez.
 - Video eğitimleri için yeni backend endpoint eklenmedi; Flutter tarafı mevcut `Category` kaydını içerik marker'larıyla kullanır. Video kategorileri `content` içinde `@[video_category]`, video kayıtları `content` içinde `@[video](url)` marker'ı ve notlar taşır. Normal kategori listelerinde bu marker'lı kayıtlar filtrelenir.
 - Ders içeriği taslak/yayın/sürüm geçmişi yönetimi React web admin akışıdır. Flutter kullanıcı tarafı yalnızca public kategori endpointlerinden yayınlanmış `content` alanını okur; Flutter admin tarafında taslak UI bilinçli olarak kapsam dışıdır.
 - Sürükle-bırak: `@dnd-kit/sortable`
@@ -99,6 +100,7 @@ User {
   proStatus, totalScore, level, avatarUrl, bio,
   fcmToken, isActive, selectedCategoryId, selectedCategoryName,
   lastActiveAt, dailyGoal, notifEnabled, notifHour, notifMinute,
+  theme (default|emerald|midnight|obsidian|sunset|lavender|ruby|arctic|amethyst),
   earnedBadges[{ badgeId, earnedAt }],
   aiPromptCount, lastAiPromptAt, aiRewardCredits, premiumQuestionCredits,
   adUnlockedExamIds[], rewardedAdWatchCount
@@ -123,6 +125,8 @@ Question {
   correctCount, wrongCount, isActive
 }
 
+- Görsel ağırlıklı eski kayıtlar için `options[]` bazen boş gelebilir; UI ve seed akışı boş şıkları `A/B/C/D` fallback ile normalize eder, yeni kayıtlarda boş seçenek kabul edilmez.
+
 Exam {
   _id, name, description, duration (dk), categoryId,
   isPro, isActive, isMiniTest, testType (short_test|mock_exam|real_exam|exam), order
@@ -135,6 +139,9 @@ ExamResult {
   score, passed, duration (saniye),
   wrongQuestions[{ questionId, questionText, userAnswer, correctAnswer, options, explanation, media }]
 }
+
+- `score` yüzde olarak tutulur (`correctCount / totalQuestions * 100`), ondalıklı olabilir; admin ve kullanıcı ekranları bunu `num/double` olarak okumalıdır.
+- Eski sonuçlarda doğru cevap alanı `correctAnswers` adıyla gelebilir; backend/UI katmanları `correctCount` öncelikli, legacy fallback destekli olmalıdır.
 
 WrongAnswer {
   _id, user (ref), questionId, questionText,
@@ -195,5 +202,20 @@ Coupon {
   _id, code, discountType (percent|fixed), discountValue,
   applicablePlans[], maxUsage, usedCount,
   maxUsagePerUser, expiresAt, isActive, description
+}
+
+DrivingSchool {
+  _id, name, city, district, neighborhood, address, phone,
+  locationUrl, websiteUrl, contactEmail, licenseClasses[],
+  description, isSponsored, sponsorLabel, sponsorPriority,
+  sponsorStartAt, sponsorEndAt, sponsorNote, isActive,
+  source, sourceUrl, lastSyncedAt
+}
+
+SchoolApplication {
+  _id, schoolId, schoolName, schoolCity, schoolDistrict,
+  schoolContactEmail, userId, userName, userEmail, userPhone,
+  userCity, message, adminMailSent, schoolMailSent, status (pending|contacted|cancelled),
+  requestedLicenseClass, preferredPeriod
 }
 ```

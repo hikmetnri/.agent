@@ -164,6 +164,7 @@
 - [x][F] [x][R] Sıralama: en yeni, son aktif, alfabetik, puan, seviye, PRO, admin, askıda, online
 - [x][F] [x][R] Kullanıcı kartı: avatar, isim, e-posta, level, puan, son aktif, online badge
 - [x][F] [x][R] Detay modal: bilgiler, istatistikler, rol değiştir, Pro ver/kaldır, askıya al/aktif et, sil
+- [x][F] [x][R] Kullanıcı detayındaki son sınav sonuçları `score` alanını ondalıklı sayılara duyarlı okur; eski kayıtlar için `correctCount` / `correctAnswers` fallback'i vardır
 - [x][F] [x][R] Kullanıcı özellerine bildirim gönderme (Tekli ve Çoklu Seçim)
 
 ### Rapor Yönetimi
@@ -198,6 +199,12 @@
 - [x][F] [x][R] Reklamlar Aktif/Pasif toggle, reklam birim ID yönetimi
 - [x][F] [x][R] QR Kod Oluşturucu: sabit takip URL'si ile Play Store yönlendirme, indirme ve tarama sayımı
 - [-][F] [x][R] Pazarlama ekranı AdMob bilgilerini veritabanındaki `ad_config` kaydından okur ve günceller
+
+### Sürücü Kursları ve Başvurular Yönetimi
+- [-][F] [x][R] Admin Panelinde Sürücü Kursları sekmesi: tüm kursları listeleme, ekleme, düzenleme, silme ve aktif/pasif yapma.
+- [-][F] [x][R] Sponsor Yönetimi: şehir bazlı sponsor ekleme, süre belirleme (başlangıç/bitiş), sponsor notu/etiketi düzenleme ve süre dolunca otomatik pasifleşme entegrasyonu.
+- [-][F] [x][R] Başvuru Yönetimi: gelen tüm kayıt başvurularını listeleme, arama (`q`), durum filtresi (`pending|contacted|cancelled`), durum güncelleme ve başvuru silme.
+- [-][F] [x][R] E-posta Entegrasyonu: başvuru e-posta adresini (`contact_email`) dinamik ayarlama ve başvurunun ilgili sürücü kursunun mail adresine de iletilmesi.
 
 ### Sistem Araçları
 - [x][F] [x][R] İşlem günlükleri (Admin Dashboard özetleri)

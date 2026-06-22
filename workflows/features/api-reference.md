@@ -198,4 +198,15 @@ DELETE /subscriptions/coupons/:id        ← admin
 # Reports
 GET    /reports
 PUT    /reports/:id
+
+# Driving Schools & Applications
+GET    /driving-schools                          ← public: list active schools, supports ?city=&district=&q=&isSponsored=
+GET    /driving-schools/:id                      ← public: get school details
+POST   /driving-schools                          ← admin: create driving school
+PUT    /driving-schools/:id                      ← admin: update driving school / sponsor status
+DELETE /driving-schools/:id                      ← admin: delete driving school
+POST   /driving-schools/:id/apply                ← user: apply to driving school
+GET    /driving-schools/applications             ← admin: get all applications, supports filters ?status=&q=
+PUT    /driving-schools/applications/:id         ← admin: update application status
+DELETE /driving-schools/applications/:id         ← admin: delete application
 ```

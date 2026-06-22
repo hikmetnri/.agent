@@ -9,7 +9,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 ---
 
 ## 2.2 Auth
-- [x][F] [x][R] Kayıt ol (ad, soyad, e-posta, şifre)
+- [x][F] [x][R] Kayıt ol (ad, soyad, e-posta, şifre; şifre güvenliği en az 6 karakter olacak şekilde sadeleştirildi, karmaşıklık kuralları kaldırıldı)
 - [x][F] [x][R] Giriş yap (e-posta + şifre)
 - [x][F] [x][R] Google ile giriş
 - [x][F] [x][R] İlk girişte ehliyet türü seçimi
@@ -65,6 +65,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] Başlık kartı: ikon, kategori adı, tahmini okuma süresi
 - [x][F] [x][R] Markdown render: H1/H2/H3, liste, kalın/italik, resim, video, ayraç
 - [x][F] [x][R] Müfredat drawer (sağdan açılır, aktif konu vurgulanır)
+- [x][F] [x][R] Konu anlatımı için sesli okuma butonu; web tarayıcı `speechSynthesis`, Flutter ekranı TTS ile aynı ders metnini okur
 - [x][F] [-][R] PDF export butonu (Kapsam Dışı)
 - [x][F] [x][R] "Kısa Teste Başla" butonu (Her sayfa sonunda değil, sadece testi olanlarda)
 - [x][F] [x][R] Testi geçince konu "tamamlandı" işaretlenir
@@ -82,16 +83,19 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] Yanlış cevaplanan sorular için "Doğru Cevap + Açıklama" gösterimi
 - [x][F] [x][R] Deneme sınavları `mock_exam` sorularını `examId` ile çeker; gerçek sınavlardan ayrı listelenir
 - [x][F] [x][R] Deneme ve gerçek sınav soruları `subject` alanıyla ayrılır: `trafik`, `ilkyardim`, `motor`, `adabi`
+- [x][F] [x][R] Görsel ağırlıklı sorularda boş şık metni olsa bile seçenekler `A/B/C/D` fallback ile gösterilir; görüntüdeki şıklar ayrı analiz edilmeden butonlar boş bırakılmaz
 - [x][F] [x][R] Yanlışlarım sekmesi backend ve lokal yanlış cevap kayıtlarını birleştirir
 - [x][F] [x][R] Akıllı yanlış tekrar sistemi backend'de ortak çalışır: zamanı gelen yanlışlar en fazla 20 soruluk "Bugün Çözülecek Yanlışlar" testine girer; doğru yapılan soru sonraki güne ertelenir, yanlış yapılırsa tekrar seviyesi sıfırlanır, aynı soru 4 farklı doğru tekrardan sonra otomatik tamamlanır; "Öğrendim" ile manuel çıkarılabilir
 - [x][F] [x][R] React web Yanlışlarım akışı tamamlandı: ana sayfa ve Sınav Merkezi zamanı gelen yanlış sayısını gösterir, `/dashboard/exams/wrong-review` route'u akıllı tekrar testini açar, yanlış soru medya/resimleri ve temiz şık metinleri gösterilir
 - [x][F] [x][R] Flutter Yanlışlarım akışı web ile aynı mantığa getirildi: dashboard "Yanlışları Çöz" aksiyonu `QuizScreen(testType: 'wrong_review')` açar, kategori filtresi uygulanmadan tüm zamanı gelen yanlışlar alınır, sonuç ekranı tekrar moduna göre davranır, resimli sorular ve şık metinleri web ile uyumludur
+- [x][F] [x][R] Sınav sonucu puanı yüzde olarak saklanır; son sınav kartları ve detay ekranları ondalıklı `score` değerini 0'a düşürmeden gösterir
 - [x][F] [x][R] Denemelerde süre opsiyonel, gerçek sınav modunda geri sayım zorunludur
 - [x][F] [-][R] DateTime bazlı güvenli timer (arka plana atılınca süre kaybolmaz)
 - [x][F] [-][R] Sınavdan çıkış onay diyaloğu (PopScope ile veri kaybı önlenir)
 - [x][F] [-][R] Başarı kutlama animasyonu (Konfeti - CustomPainter)
 - [x][F] [-][R] Quiz akışlarına soru listesi bottom sheet'i eklendi; kullanıcı soru numaralarına hızlı geçiş yapabilir
 - [x][F] [x][R] Test sonucu: doğru, yanlış, başarı %, skor hesapları
+- [x][F] [x][R] Sınav Arayüzü Ses Efektleri: Sınav esnasında şık seçildiğinde (exam modunda click, normal modlarda doğru için correct, yanlış için wrong sesleri), sorular arası geçişlerde click sesi ve sınav bittiğinde başarı durumuna göre (başarılı ise clapping, başarısız ise failed) sesli geri bildirim verilir.
 - [x][F] [x][R] Konu Okuma sonrası bitişe "Konu Testini Çöz" yönlendirmesi eklendi
 - [-][F] [x][R] React web masaüstü Sınav Merkezi arayüzü premium görünümle yenilendi: 3 sütunlu istatistik kartları, dikey zemin kaymalı sekme çubuğu (sliding pill switcher), kategori filtresi butonları ve kilit/başarı durumlarına göre neon parıltılı sınav listesi kartları.
 - [x][F] [-][R] `%70+` başarıyla geçilen kısa test `completed_category_<categoryId>` olarak kaydedilir ve dashboard hızlı test havuzundan çıkarılır
@@ -169,6 +173,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] Kurs kartlarında ad, şehir/ilçe, adres, telefon, konum linki, web/başvuru linki ve verilen ehliyet sınıfları gösterilir
 - [x][F] [x][R] Arama, şehir ve ilçe filtresi Türkiye il/ilçe listesinden seçilebilir yapıdadır
 - [x][F] [x][R] Telefon, konum ve web bağlantıları uygulama/cihaz dışı bağlantı olarak açılır
+- [x][F] [x][R] Hızlı Başvuru (inline form) yerine bağımsız ve zengin içerikli "Dedicated Kayıt Başvuru Formu" ekranı (`DrivingSchoolApplyScreen` / `/dashboard/driving-schools/:id/apply`) entegre edildi. Ad/Soyad ve Telefon otomatik doldurulur, Ehliyet Sınıfı ve Kayıt Dönemi dropdown seçicileri sunulur, başarılı başvuru sonrasında premium başarı ekranı gösterilir.
 
 ### Analytics (Ayrı Sayfa - Premium UI)
 - [x][F] [x][R] Kompakt Streak + Günlük hedef kartları
@@ -209,6 +214,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] Ayarlar açılırken backend ayarları lokal SharedPreferences ile senkronize edilir
 - [x][F] [x][R] Sınav tarihi geri sayım widget (Dashboard)
 - [-][F] [x][R] Web Tercihler ekranında sınav tarihi alanı native takvim açacak şekilde güçlendirildi; tarih inputuna veya Takvim butonuna basınca date picker açılır
+- [x][F] [x][R] Uygulama sesleri için SharedPreferences / localStorage destekli "Uygulama Sesleri" toggle/switch düğmesi; kapalıyken tüm test ve ayar ses efektleri mute edilir. Ayarlar başarıyla kaydedildiğinde sesli geri bildirim (`save.mp3`) oynatılır.
 
 ### Abonelik / Paywall
 - [x][F] [-][R] Pro özellikleri listele + satın al (Kapsam Dışı)
