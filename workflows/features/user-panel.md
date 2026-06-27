@@ -173,7 +173,7 @@ Durum notu: `[F]` Flutter, `[R]` React web anlamına gelir. `[x]` tamamlandı, `
 - [x][F] [x][R] Kurs kartlarında ad, şehir/ilçe, adres, telefon, konum linki, web/başvuru linki ve verilen ehliyet sınıfları gösterilir
 - [x][F] [x][R] Arama, şehir ve ilçe filtresi Türkiye il/ilçe listesinden seçilebilir yapıdadır
 - [x][F] [x][R] Telefon, konum ve web bağlantıları uygulama/cihaz dışı bağlantı olarak açılır
-- [x][F] [x][R] Hızlı Başvuru (inline form) yerine bağımsız ve zengin içerikli "Dedicated Kayıt Başvuru Formu" ekranı (`DrivingSchoolApplyScreen` / `/dashboard/driving-schools/:id/apply`) entegre edildi. Ad/Soyad ve Telefon otomatik doldurulur, Ehliyet Sınıfı ve Kayıt Dönemi dropdown seçicileri sunulur, başarılı başvuru sonrasında premium başarı ekranı gösterilir.
+- [x][F] [x][R] Hızlı Başvuru (inline form) yerine bağımsız ve zengin içerikli "Dedicated Kayıt Başvuru Formu" ekranı (`DrivingSchoolApplyScreen` / `/dashboard/driving-schools/:id/apply`) entegre edildi. Ad/Soyad ve Telefon otomatik doldurulur, Ehliyet Sınıfı ve Kayıt Dönemi dropdown seçicileri sunulur, başarılı başvuru sonrasında premium başarı ekranı gösterilir. Ayrıca G Sınıfı (İş Makinesi) seçildiğinde 18 popüler operatörlük belgesi türünü (Vinç, Forklift vb.) içeren dinamik bir alt seçim alanı açılır ve seçilen veri başvuru mesajının başına eklenerek backend'e iletilir.
 
 ### Analytics (Ayrı Sayfa - Premium UI)
 - [x][F] [x][R] Kompakt Streak + Günlük hedef kartları
