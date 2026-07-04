@@ -29,6 +29,7 @@
 - [x][F] [x][R] Destek Talepleri özeti (Okundu/Yeni/Yanıtlandı/Kapatıldı durumu)
 - [x][F] [x][R] Destek mesajlaşmasında kullanıcıdan gelen yeni talep ve yanıtlar adminlere in-app + FCM push olarak gider
 - [x][F] [-][R] Flutter destek merkezi yanıt bekleyen/açık talep sayısını başlıkta daha net gösterir; destek kartları daha kompakt ve mobil taşmaya dayanıklı hale getirildi
+- [x][F] [x][R] Destek merkezi web admin: header'a yeni/toplam sayaç kartları, chat balonları yeniden tasarlandı, yeniden açma butonu ve silme özelliği eklendi
 - [x][F] [x][R] Şikayetler/Raporlar özeti (Hızlı kapatma eylemi)
 - [x][F] [x][R] Her panel için "Tümü" kısayol navigasyonu
 
@@ -145,6 +146,7 @@
 - [x][F] [x][R] Rozet kartlarında hedef değeri ve rozeti kazanan kullanıcı sayısı (`earnedCount`) gösterilir
 - [x][F] [x][R] "Kimlerin Aldığını Gör" aksiyonu ile rozeti kazanan kullanıcılar modalda ad, e-posta ve kazanım tarihiyle listelenir
 - [x][F] [x][R] Flutter admin rozet yönetimi React web ile aynı kazanım görünürlüğünü kullanır: satırda `earnedCount`, tıklanınca `/badges/:id/earned-users` modalı
+- [-][F] [x][R] Web admin rozet sayfası: arama kutusu, refresh butonu, boş durum ekranı ve glow efektli kart tasarımı eklendi; oluşturma/düzenleme modalı grid layout'a taşındı
 
 ---
 
@@ -153,7 +155,7 @@
 ### Profil Bilgileri
 - [x][F] [x][R] Avatar yükleme (Edit Profile)
 - [x][F] [x][R] Ad, soyad, e-posta, telefon
-- [x][F] [x][R] Şifre değiştirme
+- [x][F] [x][R] Şifre değiştirme — şifre güç göstergesi (StrengthBar) ve göster/gizle toggle eklendi
 - [x][F] [x][R] Profil düzenleme
 
 ### Kullanıcı Yönetimi
@@ -173,10 +175,15 @@
 - [x][F] [x][R] İçeriği görüntüle / sil, raporu kapat
 - [x][F] [x][R] Filtre: açık / çözüldü / reddedildi
 - [x][F] [-][R] Flutter rapor ekranı özet strip + segment filtre + taşma güvenli pill yapısına taşındı
+- [x][F] [x][R] Web admin rapor ekranı sayaç kartları (açık/çözüldü/toplam), raporlayan e-posta ve tarih gösterimi, hedef tipi renk kodlaması eklendi
+
+### Akış (Feed) Yönetimi
+- [-][F] [x][R] Web admin akış ekranı: bekleyen/onaylı/reddedilen sayaç kartları, gönderi listesinde beğeni+yorum sayaçları, ek görsel gösterimi, inline action bar iyileştirildi
 
 ### Bildirim Yönetimi (Broadcast)
 - [x][F] [x][R] Hedef kitle: Herkes / Pro Üyeler / Ücretsiz / Seçili Kişiler
 - [x][F] [x][R] Form: başlık + mesaj + görsel URL
+- [-][F] [x][R] Web admin bildirim ekranı: hedef kitle seçimi grid layout'a taşındı, dinleyici sayacı eklendi, geçmiş tabloları kompaktlaştırıldı
 - [x][F] [-][R] Flutter duyuru oluşturma formunda gönderim aksiyonu tam genişlik butona taşındı; küçük ekran taşmaları azaltıldı
 - [x][F] [-][R] Flutter duyuru hedef kitle seçimi kompakt segmente çekildi; duyuru geçmişi uzun başlık/gövde için ellipsis kullanır
 - [x][F] [x][R] Duyuru geçmişi: başlık, hedef, kaç kişi, tarih, sil
@@ -185,14 +192,16 @@
 - [x][F] [x][R] Bildirim tipleri: `broadcast`, `targeted`, `system`, `exam`, `alert`, `chat_message`
 - [x][F] [x][R] FCM token debug endpoint'i ile token istatistikleri kontrol edilebilir
 - [x][F] [x][R] Gizlilik politikası ve KVKK metinleri Markdown/GFM olarak kaydedilip public sayfada Markdown renderer ile gösterilir
+- [-][F] [x][R] Admin web sol sidebar menüsüne Bildirim Yönetimi bağlantısı eklendi; ayarlar altındaki gizli sayfadan bağımsız menü öğesine taşındı
+- [-][F] [x][R] Admin bildirim gönderim sonrası backend yanıtındaki `totalUsers`, `tokensFound`, `successCount` sayıları admin panelinde kullanıcıya gösterilir
 
 ### Abonelik Yönetimi
 - [x][F] [x][R] Abonelik satış durumu admin pazarlama ekranından açılıp kapatılabilir; mobil uygulamadaki PRO satış ekranı ve plan görünürlüğünü etkiler
 - [x][F] [x][R] Satın alma doğrulaması aktif/pasif durumu admin ekranında bilgilendirme olarak gösterilir
 - [x][F] [-][R] Planlar: Haftalık / Aylık / Yıllık (Kapsam Dışı)
 - [x][F] [-][R] Aktif abonelikler (Kapsam Dışı)
-- [x][F] [-][R] Kupon yönetimi (Kapsam Dışı)
-- ⚠️ Plan/kupon/aktif abonelik yönetimi şu an kapsam dışıdır; satış ekranı aç/kapat kontrolü aktiftir.
+- [x][F] [x][R] Kupon yönetimi: kupon oluşturma (kod, % veya ₺ indirim, kullanım limiti, kullanıcı başına limit, son tarih, açıklama), düzenleme, aktif/pasif toggle, silme ve kullanım istatistikleri (`usedCount` gösterimi). `GET/POST/PUT/DELETE /api/subscriptions/coupons` endpoint'leri kullanılır.
+- ⚠️ Plan/aktif abonelik yönetimi şu an kapsam dışıdır; satış ekranı aç/kapat kontrolü ve kupon yönetimi aktiftir.
 
 ### Reklam ve Pazarlama Yönetimi
 - [x][F] [x][R] Google AdMob Reklam Yönetimi (Banner / Interstitial / Rewarded)
@@ -205,6 +214,7 @@
 - [-][F] [x][R] Sponsor Yönetimi: şehir bazlı sponsor ekleme, süre belirleme (başlangıç/bitiş), sponsor notu/etiketi düzenleme ve süre dolunca otomatik pasifleşme entegrasyonu.
 - [-][F] [x][R] Başvuru Yönetimi: gelen tüm kayıt başvurularını listeleme, arama (`q`), durum filtresi (`pending|contacted|cancelled`), durum güncelleme ve başvuru silme.
 - [-][F] [x][R] E-posta Entegrasyonu: başvuru e-posta adresini (`contact_email`) dinamik ayarlama ve başvurunun ilgili sürücü kursunun mail adresine de iletilmesi.
+- [-][F] [x][R] Web admin sürücü kursları sayfası header'ına toplam/aktif/sponsorlu/şehir sayaç kartları eklendi; header section wrapper ile tutarlı hale getirildi
 
 ### Sistem Araçları
 - [x][F] [x][R] İşlem günlükleri (Admin Dashboard özetleri)

@@ -58,3 +58,17 @@
 - [x][F] [x][R] Buzlu Cam & Alt Kayar Panel: Mobil platformda AI sohbet ekranı tüm ekranı kaplamak yerine ekranın %65'i yüksekliğinde şık ve buzlu cam (BackdropFilter) efektli bir alt kayar panel olarak açılır. Açıkken buton kapatma (X) simgesine dönüşür.
 - [x][F] [x][R] AI Typewriter & Otomatik Kaydırma: Yapay zeka asistanının verdiği yeni yanıtlar harf harf yazılma (typewriter) efektiyle gösterilir ve yazma esnasında sohbet ekranı otomatik olarak en aşağı kaydırılır. Yazım işlemi bittiğinde yanıp sönen `▎` imleci gizlenir ve sayfa/klavye değişimlerinde animasyonun tekrar oynamaması için durum takibi yapılır.
 - [x][F] [x][R] AI Butonu Konumlandırması: Test/Sınav çözme ekranlarında sağ alttaki kontrol ve onaylama butonlarıyla (Sonraki Soru, Sınavı Teslim Et vb.) çakışmayı önlemek amacıyla AI sohbet butonu alt hizalaması yukarı kaydırılmıştır (Flutter'da `bottom: 130`, Web'de sınav sayfalarında `bottom: 84px` / `88px` olarak dinamikleşir).
+
+### Landing Page Premium Tasarım (Web)
+- [-][F] [x][R] Landing page header premium yenileme: glassmorphism arka plan (`bg-white/[0.04] backdrop-blur-2xl`), gradient border glow, scroll'da compact mod ve yumuşak geçişler
+- [-][F] [x][R] Header logo squircle (`rounded-[1rem]`) tasarımı: gradient border (`from-primary to-accent`), beyaz iç arka plan (`from-white to-gray-100`) koyu PNG logonun görünürlüğü için, hover'da neon glow ring efekti
+- [-][F] [x][R] Header menü tipografi iyileştirmesi: `text-[11px] font-black uppercase tracking-widest` küçük harfler ve hover'da alt çizgi animasyonu (`after:scale-x-0 → hover:after:scale-x-100`)
+- [-][F] [x][R] Header \"Kayıt Ol\" butonu gradient arka plan (`from-primary to-indigo-600`), gölge parıltısı ve hover scale efekti
+- [-][F] [x][R] Hero CTA butonu shimmer efekti: üzerinden sürekli geçen ışık süpürme animasyonu (`@keyframes shimmer`)
+- [-][F] [x][R] Features ve kategori kartları premium gradient arka plan (`from-white/[0.02] to-transparent`) ve hover'da yukarı kalkma (`-translate-y-1`) + derin gölge efekti
+- [-][F] [x][R] Testimonial kartları hover lift ve border glow efekti
+- [-][F] [x][R] "Nasıl Çalışır" adım numaraları hover'da cyan neon glow ring efekti (`shadow-[0_0_15px_rgba(34,211,238,0.3)]`)
+- [-][F] [x][R] Footer logo header ile tutarlı squircle + beyaz arka plan yapısına güncellendi
+- [-][F] [x][R] Telefon mockup'taki logo squircle + beyaz arka plan yapısına güncellendi
+- [-][F] [x][R] İstatistik sayıları pazarlama offsetli: kullanıcı sayısına +5000, soru sayısına +12000 eklenerek daha etkileyici gösterilir
+- [-][F] [x][R] Trafik levhaları bölümüne sayfalandırma eklendi: sayfa başına 24 kart, önceki/sonraki navigasyonu ve aktif sayfa göstergesi
