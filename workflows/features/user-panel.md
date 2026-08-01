@@ -86,6 +86,7 @@ Misafir modu, kullanıcının kayıt olmadan uygulamayı deneyebileceği sınır
 - [-][F] [x][R] React web masaüstü dashboard tam yeniden tasarımı: gradient karşılama bannerı + inline CTA butonları (Derse Başla, Sınava Gir, Yanlışları Çöz), 2×2 metrik kart ızgarası (toplam puan, sınav sayısı, doğru %, seri), XP progress bar + günlük soru hedefi progress bar, 3 sütunlu içerik ızgarası (Bugünkü Plan + Aksiyon Kartları | Müfredat | Kenar Panel Widget'ları). `UserHome.jsx` 1789→1241 satıra indirildi; ~548 satır `className="hidden"` ölü desktop kod bloğu, `isMockMode` ve `mainCategories` state'i + `/categories` API çağrısı temizlendi.
 - [-][F] [x][R] React web dashboard kenar paneli "Son Sınavlarım" widget'ı eklendi: son 5 sınav sonucu geçti/kaldı rozeti, puan ve tarih ile gösterilir; `buildScopedStats` yanıtından `recentResults` state'i beslenir.
 - [-][F] [x][R] React web dashboard "Günün Sözü" premium kart olarak yeniden tasarlandı: arka plan glow efekti, tırnak ikonu, söz metni ve yazar adı ön plana alındı; önceki tasarımda fark edilmez şerit halindeydi.
+- [-][F] [x][R] React web masaüstü dashboard son yeniden tasarım (2026-07-04): gradient karşılama bannerı + misafir banner (desktop + mobil), misafir için 4 avantaj chip'i ve üyelik CTA butonları; `UserHome.jsx` 1241 satıra indirilerek ölü kod temizlendi.
 
 ### Kategori Grid
 - [x][F] [x][R] 2 sütunlu grid (seçili kategorinin alt konuları)
@@ -135,6 +136,9 @@ Misafir modu, kullanıcının kayıt olmadan uygulamayı deneyebileceği sınır
 - [x][F] [x][R] Konu Okuma sonrası bitişe "Konu Testini Çöz" yönlendirmesi eklendi
 - [-][F] [x][R] React web masaüstü Sınav Merkezi arayüzü premium görünümle yenilendi: 3 sütunlu istatistik kartları, dikey zemin kaymalı sekme çubuğu (sliding pill switcher), kategori filtresi butonları ve kilit/başarı durumlarına göre neon parıltılı sınav listesi kartları.
 - [-][F] [x][R] React web masaüstü Sınav Merkezi tam yeniden tasarımı: hero banner (4 istatistik kartı: toplam sınav, başarı oranı, en yüksek puan, seri), kompakt sliding-pill sekme çubuğu, yanlış tekrar girişi inline entegre edildi, sınav kartları tür bazlı aksan renkleriyle (trafik/ilkyardim/motor/adabi) 2×2/3/4 sütun ızgarada gösteriliyor. `UserExams.jsx` 1162→764 satıra indirildi.
+- [-][F] [x][R] React web Topluluk Feed pagination eklendi (2026-07-04): `PAGE_SIZE=15`, filtre/arama değişince sayfa 1'e reset, "Daha Fazla Göster (X/toplam)" butonu masaüstü + mobil görünümde.
+- [-][F] [x][R] React web Dersler sayfası sidebar progress bar + premium header güncellendi (2026-07-04): sol sidebar `completed/total` progress bar, içerik header'ı aksan çizgisi + geliştirilmiş tipografi + stillendirilmiş "Sesli Oku" butonu.
+- [-][F] [x][R] React web Dersler sayfası bug düzeltmeleri (2026-07-08): geçersiz `h-4.5 w-4.5` Tailwind class'ları `h-4 w-4` olarak düzeltildi (4 yer); sidebar çift progress bar kaldırıldı; sidebar ders sayısı badge'i `contentLessons.length` ile düzeltildi; desktop ses anlatıcı menüsü dışarı tıklayınca kapanacak şekilde overlay backdrop eklendi.
 - [x][F] [-][R] `%70+` başarıyla geçilen kısa test `completed_category_<categoryId>` olarak kaydedilir ve dashboard hızlı test havuzundan çıkarılır
 - [x][F] [-][R] Başarılı kısa test sonrası devam kartı önce sıradaki tamamlanmamış kısa testi, yoksa sıradaki konu anlatımını hedefler
 
@@ -169,6 +173,8 @@ Misafir modu, kullanıcının kayıt olmadan uygulamayı deneyebileceği sınır
 - [x][F] [x][R] Beğeni toggle (optimistic UI)
 - [x][F] [x][R] Yorum listesi + yazma alanı (bubble chat UI, açılır panel)
 - [x][F] [x][R] Gönderi detay sayfası (ayrı route: `/dashboard/feed/:postId`; web liste ve bildirim yönlendirmesi bağlı)
+- [x][F] [ ][R] Flutter gönderi detayında kullanıcı kendi gönderisi dışındaki onaylı içeriği şikayet edebilir; neden seçenekleri `inappropriate|spam|harassment|misinformation|copyright|other`, açıklama en fazla 1000 karakterdir
+- [x][F] [ ][R] Aynı kullanıcı aynı içerik için ikinci bir açık rapor oluşturamaz; kendi gönderisini raporlayamaz
 - [x][F] [x][R] Yorum gelince bildirim (backend tarafında `Notification` oluşturuluyor)
 - [x][F] [x][R] Gönderi oluşturma sonrası başarı animasyonu
 - [x][F] [x][R] Hero banner (toplam gönderi & yorum istatistikleri)
@@ -290,3 +296,8 @@ Misafir modu, kullanıcının kayıt olmadan uygulamayı deneyebileceği sınır
 - [-][F] [x][R] `AdminUsers.jsx` kendi rolünü değiştirme koruması eklendi: `handleRoleToggle` başına `userId === currentUser?._id` kontrolü eklendi; admin kendi rolünü değiştirmeye çalışırsa frontend engel koyuyor (backend `authorize('admin')` ile de koruyor).
 - [-][F] [x][R] `UserExamSolve.jsx` misafir favori UX iyileştirildi: tarayıcı native `alert()` kaldırıldı; `guestMsg` state + 3 saniyelik amber toast banner ile değiştirildi; toast içinde "Üye Ol" CTA butonu yer alıyor.
 - [-][F] [x][R] `UserHome.jsx` misafir CTA'larında `useAuthStore.getState().logout()` anti-pattern kaldırıldı; `logout` component scope'unda destructure edildi (4 yer).
+- [-][F] [x][R] `UserSettings.jsx` liderlik tablosunda "Siz" vurgulama hatası düzeltildi (2026-07-04): backend `_id: 0, userId: "$_id"` formatında döndüğü için `item._id` yerine `item.userId` kullanılarak `isSelf` kontrolü düzeltildi.
+- [-][F] [x][R] `UserDrivingSchools.jsx` premium UI güncellemesi (2026-07-04): kurs listesi, filtre ve kart tasarımı yenilendi.
+- [-][F] [x][R] `authStore.js` güçlendirildi (2026-07-04): `logout` action'ı sessionStorage ve localStorage temizliğini de kapsıyor; `user` state sıfırlanıyor.
+- [-][F] [x][R] `UserExamSolve.jsx` bug düzeltmeleri (2026-07-08): `guestToast` içindeki `useAuthStore.getState().logout()` anti-pattern kaldırıldı; `mode` belirleme logic güçlendirildi (`exam.testType` öncelikli, `real_exam`→real, `mock_exam/short_test`→mock, legacy isim fallback); `persistedTestType` hesabına `exam.testType` fallback eklendi.
+- [-][F] [x][R] `UserExams.jsx` bug düzeltmeleri (2026-07-08): `h-4.5 w-4.5` geçersiz Tailwind class düzeltildi (2 yer); `shortGroups` filtre buton array destructuring `{ key, label, count }` object pattern'e temizlendi; mobil kısa test grup header "Soru" → "Test" düzeltildi; `generalExams`/`realSimExams` filtreleme `testType` alanı öncelikli hale getirildi; `displayedExams` hesabı yeniden kullanılan dizilere bağlandı; kart soru sayısı `exam.questionCount` varsa göster, yoksa `Konu testi`/`50 soru` etiket.

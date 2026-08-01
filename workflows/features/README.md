@@ -2,6 +2,9 @@
 
 Bu klasor Ehliyet Yolu projesinin kalici feature hafizasidir.
 
+Son kapsam denetimi: 2026-07-29 — Flutter admin/sinav/rapor/yönetim araci
+degisiklikleri, gercek backend route'lari ve React web aktarim aciklari esitlendi.
+
 Ana kaynak:
 
 `/Users/hikmet/Desktop/Proje/.agent/workflows/features`
@@ -49,3 +52,5 @@ Bu durumda final cevapta "features guncellemesi gerekmedi" diye belirtilir.
 - `technical-spec.md`: Veri modelleri, teknik kurallar ve sistem davranislari.
 - `other-features.md`: Trafik isaretleri, video, pazarlama ve genel ek ozellikler.
 - `github-audit-*.md`: GitHub commit gecmisiyle feature hafizasi karsilastirmalari.
+- `mobile-admin-sync-2026-07-29.md`: Flutter admin panelindeki son sinav, icerik,
+  istatistik, profil ve yonetim araci davranislarinin React web esleme sozlesmesi.

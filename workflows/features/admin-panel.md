@@ -14,15 +14,20 @@
 ## 1.2 Ana Sayfa (Dashboard)
 
 ### İstatistikler ve Grafikler
-- [x][F] [x][R] 6 Temel özet kartı: Kullanıcı, Sınav, Başarı, Bekleyen Gönderi, Destek, Raporlar
+- [x][F] [x][R] Flutter ile eşleşen 4 kompakt ana KPI: Toplam Kullanıcı, PRO Üyeler, Aktif Sınavlar, Soru Bankası
+- [x][F] [x][R] Rapor, gönderi onayı ve destek sayaçları ayrı kompakt İşlem Merkezi satırlarında gerçek kuyruk verisiyle gösterilir
 - [x][F] [x][R] Dinamik Kayıt Trendi Grafiği (Son 7 Gün - Area Chart)
 - [x][F] [x][R] Kategori Başarı Oranları (Bar Chart)
+- [x][F] [x][R] Web dashboard yükleme skeleton'u, kısmi API hata bandı + tekrar dene ve grafik boş durumlarını destekler
 
 ### Kısayollar ve Araçlar
 - [x][F] [x][R] Hızlı İşlem Butonları (Sınav Ekle, Duyuru Gönder, Ayarlar)
 - [x][F] [x][R] Hızlı Not Defteri (Admin içi lokal kayıtlı mini notlar)
 - [x][F] [x][R] Sistem Aktiviteleri Zaman Çizelgesi (Loglar - Timeline)
 - [x][F] [-][R] Flutter admin hesap/profil header'ı kompaktlaştırıldı; admin araç kartları daha sıkı iki sütunlu satır düzenine yaklaştırıldı
+- [x][F] [x][R] Web admin dashboard Flutter tasarım tokenlarına (`#080D18`, `#101725`, `#243044`, mor/cyan/amber vurgu) geçirildi; mobilde beşli alt navigasyon, masaüstünde sidebar kullanır
+- [x][F] [x][R] Dashboard hızlı aksiyonları Kullanıcılar, Sınavlar, Analitik, Duyuru, Abonelik ve Reklamlar olarak 3/6 kolon responsive düzende eşitlendi
+- [x][F] [x][R] Web'e özgü hızlı moderasyon, lokal not ve işlem geçmişi ana mobil akışı bozmayan açılır detay alanında korunur
 
 ### Hızlı Aksiyon Kutuları (Quick Actions)
 - [x][F] [x][R] Bekleyen Gönderiler (Hızlı onay/reddet butonları)
@@ -39,6 +44,8 @@
 
 ### Kategoriler
 - [x][F] [x][R] Kategori listesi (Tree View yapısı)
+- [x][F] [x][R] İş Makinesi kökü altında operatörlük kitabına göre 8 ana konu ve 39 alt
+  konu veritabanına idempotent seed ile eklendi; mevcut ağaç kalıcı işlem öncesi yedeklenir
 - [x][F] [-][R] Flutter içerik yönetimi üst tabları ikonlu, kısa ve yatay kaydırılabilir hale getirildi: Kategori, Soru, Söz, Video
 - [x][F] [-][R] Flutter kategori yönetimine `Kategori Ağacı` özet kartı, boş durumda ilk kategori CTA'sı, uzun isim ellipsis'i ve `PRO`/`İçerik var` rozetleri eklendi
 - [x][F] [x][R] Sürükle-bırak sıralama (Framer Motion Reorder)
@@ -91,6 +98,10 @@
 ## 1.4 Sınav Yönetimi
 - [x][F] [x][R] Sınav listesi
 - [x][F] [x][R] Deneme sınavları ve gerçek sınavlar admin arayüzünde ayrı yönetilir; `mock_exam` ve `real_exam` `testType` değerleri korunur
+- [x][F] [x][R] Sınav Yönetimi yalnızca `real_exam` oluşturur; `mock_exam` İçerik > Deneme, `short_test` İçerik > Kısa Test altında yönetilir
+- [x][F] [x][R] Sınav oluşturma ve liste filtreleri yalnızca B Sınıfı ile İş Makinesi/Operatör/İSG köklerini gösterir
+- [x][F] [x][R] Soru branşları seçilen sınav sınıfına göre dinamik değişir: B Sınıfı `trafik|ilkyardim|motor|adabi`; İş Makinesi `isg|operator|trafik|motor|adabi`
+- [x][F] [x][R] Web Sınav Merkezi B Sınıfı / İş Makinesi segmentleri, kategoriye özel sınav sayaçları ve dinamik branş dağılım kartları kullanır
 - [x][F] [-][R] Flutter admin sınav ekranı modern yönetim görünümüne çekildi: kompakt arama/filtre, özet kartları, inline soru yönetimi, düzenle/sil aksiyonları
 - [x][F] [-][R] Flutter sınav yönetimi başlığı, branş dağılımı ve aksiyon satırları küçük ekranda taşma riskine karşı sıkılaştırıldı
 - [x][F] [x][R] Yeni sınav oluştur: isim, süre, kategori, Pro toggle
@@ -147,6 +158,7 @@
 - [x][F] [x][R] "Kimlerin Aldığını Gör" aksiyonu ile rozeti kazanan kullanıcılar modalda ad, e-posta ve kazanım tarihiyle listelenir
 - [x][F] [x][R] Flutter admin rozet yönetimi React web ile aynı kazanım görünürlüğünü kullanır: satırda `earnedCount`, tıklanınca `/badges/:id/earned-users` modalı
 - [-][F] [x][R] Web admin rozet sayfası: arama kutusu, refresh butonu, boş durum ekranı ve glow efektli kart tasarımı eklendi; oluşturma/düzenleme modalı grid layout'a taşındı
+- [-][F] [x][R] Web admin rozet sayfası tam yeniden tasarım (2026-07-04): `AdminBadges.jsx` ~654 satıra yeniden yazıldı; rozet listesi, oluşturma/düzenleme/silme modal akışları modernize edildi.
 
 ---
 
@@ -160,7 +172,7 @@
 
 ### Kullanıcı Yönetimi
 - [x][F] [x][R] Özet kartlar: Toplam, Admin, Pro sayısı, askıdaki kullanıcı sayısı
-- [x][F] [x][R] Kullanıcı listesi (sayfalama: 50/sayfa)
+- [x][F] [x][R] Kullanıcı listesi sunucu tabanlı sayfalama kullanır (Flutter varsayılan 20, React varsayılan 50)
 - [x][F] [x][R] Arama: ad, soyad, e-posta
 - [x][F] [x][R] Filtre: Tümü / Kullanıcı / Admin / Pro / Aktif / Askıda / Online
 - [x][F] [x][R] Sıralama: en yeni, son aktif, alfabetik, puan, seviye, PRO, admin, askıda, online
@@ -168,22 +180,30 @@
 - [x][F] [x][R] Detay modal: bilgiler, istatistikler, rol değiştir, Pro ver/kaldır, askıya al/aktif et, sil
 - [x][F] [x][R] Kullanıcı detayındaki son sınav sonuçları `score` alanını ondalıklı sayılara duyarlı okur; eski kayıtlar için `correctCount` / `correctAnswers` fallback'i vardır
 - [x][F] [x][R] Kullanıcı özellerine bildirim gönderme (Tekli ve Çoklu Seçim)
+- [x][F] [ ][R] Flutter kullanıcı listesi server-side `page/limit/search/filter/sort` kullanır; global sayaçlar API `summary` alanından gelir ve geç dönen arama istekleri yeni sonucu ezmez
+- [x][F] [ ][R] Adminin kendi admin rolünü kaldırması backend tarafından engellenir
 
 ### Rapor Yönetimi
 - [x][F] [x][R] Şikayet edilen içerikler listesi
 - [x][F] [x][R] Her rapor: şikayet eden, içerik, sebep, tarih
 - [x][F] [x][R] İçeriği görüntüle / sil, raporu kapat
 - [x][F] [x][R] Filtre: açık / çözüldü / reddedildi
+- [x][F] [ ][R] Rapor hedefi soru veya gönderi olabilir (`targetType: question|post`); soru düzenleme ve gönderiyi görüntüleme/silme aksiyonları hedefe göre ayrılır
 - [x][F] [-][R] Flutter rapor ekranı özet strip + segment filtre + taşma güvenli pill yapısına taşındı
 - [x][F] [x][R] Web admin rapor ekranı sayaç kartları (açık/çözüldü/toplam), raporlayan e-posta ve tarih gösterimi, hedef tipi renk kodlaması eklendi
+- [-][F] [x][R] Web admin rapor ekranı tam yeniden tasarım (2026-07-04): `AdminReports.jsx` ~525 satıra yeniden yazıldı; filtre, sayaç ve içerik akışı modernize edildi.
 
 ### Akış (Feed) Yönetimi
 - [-][F] [x][R] Web admin akış ekranı: bekleyen/onaylı/reddedilen sayaç kartları, gönderi listesinde beğeni+yorum sayaçları, ek görsel gösterimi, inline action bar iyileştirildi
+- [-][F] [x][R] Web admin akış ekranı tam yeniden tasarım (2026-07-04): `AdminFeed.jsx` ~535 satıra yeniden yazıldı.
 
 ### Bildirim Yönetimi (Broadcast)
 - [x][F] [x][R] Hedef kitle: Herkes / Pro Üyeler / Ücretsiz / Seçili Kişiler
+- [x][F] [ ][R] Flutter hedef kitleye `İlk sınavını bekleyenler` segmenti eklendi; `all|pro|free|waiting_first_test` sayıları backend `audience` alanından okunur
+- [x][F] [ ][R] Broadcast normal kullanıcı ve aktif hesaplarla sınırlıdır; admin ve askıdaki hesaplar hedeflenmez
 - [x][F] [x][R] Form: başlık + mesaj + görsel URL
 - [-][F] [x][R] Web admin bildirim ekranı: hedef kitle seçimi grid layout'a taşındı, dinleyici sayacı eklendi, geçmiş tabloları kompaktlaştırıldı
+- [-][F] [x][R] Web admin bildirim ekranı bağımsız sayfa olarak ayrıldı (2026-07-04): `AdminNotifications.jsx` ~506 satır yeni dosya olarak oluşturuldu; `AdminSettings.jsx`'ten taşındı, sol sidebar menüsüne bağımsız link eklendi.
 - [x][F] [-][R] Flutter duyuru oluşturma formunda gönderim aksiyonu tam genişlik butona taşındı; küçük ekran taşmaları azaltıldı
 - [x][F] [-][R] Flutter duyuru hedef kitle seçimi kompakt segmente çekildi; duyuru geçmişi uzun başlık/gövde için ellipsis kullanır
 - [x][F] [x][R] Duyuru geçmişi: başlık, hedef, kaç kişi, tarih, sil
@@ -193,21 +213,28 @@
 - [x][F] [x][R] FCM token debug endpoint'i ile token istatistikleri kontrol edilebilir
 - [x][F] [x][R] Gizlilik politikası ve KVKK metinleri Markdown/GFM olarak kaydedilip public sayfada Markdown renderer ile gösterilir
 - [-][F] [x][R] Admin web sol sidebar menüsüne Bildirim Yönetimi bağlantısı eklendi; ayarlar altındaki gizli sayfadan bağımsız menü öğesine taşındı
-- [-][F] [x][R] Admin bildirim gönderim sonrası backend yanıtındaki `totalUsers`, `tokensFound`, `successCount` sayıları admin panelinde kullanıcıya gösterilir
+- [x][F] [ ][R] Güncel broadcast sonucu `sentCount`, `tokenCount`, `pushSent`, `errorDetails` alanlarıyla gösterilir; React webdeki legacy `totalUsers/tokensFound/successCount` okuması güncellenmelidir
 
 ### Abonelik Yönetimi
 - [x][F] [x][R] Abonelik satış durumu admin pazarlama ekranından açılıp kapatılabilir; mobil uygulamadaki PRO satış ekranı ve plan görünürlüğünü etkiler
 - [x][F] [x][R] Satın alma doğrulaması aktif/pasif durumu admin ekranında bilgilendirme olarak gösterilir
-- [x][F] [-][R] Planlar: Haftalık / Aylık / Yıllık (Kapsam Dışı)
-- [x][F] [-][R] Aktif abonelikler (Kapsam Dışı)
+- [x][F] [ ][R] Plan yönetimi: Haftalık / 2 Haftalık / Aylık / Yıllık plan oluşturma ve düzenleme
+- [ ][F] [ ][R] Aktif kullanıcı abonelikleri listesi (şimdilik kapsam dışı)
 - [x][F] [x][R] Kupon yönetimi: kupon oluşturma (kod, % veya ₺ indirim, kullanım limiti, kullanıcı başına limit, son tarih, açıklama), düzenleme, aktif/pasif toggle, silme ve kullanım istatistikleri (`usedCount` gösterimi). `GET/POST/PUT/DELETE /api/subscriptions/coupons` endpoint'leri kullanılır.
-- ⚠️ Plan/aktif abonelik yönetimi şu an kapsam dışıdır; satış ekranı aç/kapat kontrolü ve kupon yönetimi aktiftir.
+- [x][F] [ ][R] Flutter abonelik satış ayarı, plan ve kupon listeleri yükleme hatasını boş liste gibi göstermez; her bölüm ayrı hata ve tekrar dene durumu kullanır
+- ⚠️ Plan, satış ekranı ve kupon yönetimi aktiftir; kullanıcı bazlı aktif abonelik listesi henüz uygulanmamıştır.
+
+### Profil Bilgileri (güncelleme 2026-07-04)
+- [-][F] [x][R] `AdminProfile.jsx` tam yeniden tasarım (2026-07-04): ~436 satıra yeniden yazıldı; profil düzenleme, şifre değiştirme ve avatar yükleme akışları modernize edildi.
 
 ### Reklam ve Pazarlama Yönetimi
 - [x][F] [x][R] Google AdMob Reklam Yönetimi (Banner / Interstitial / Rewarded)
 - [x][F] [x][R] Reklamlar Aktif/Pasif toggle, reklam birim ID yönetimi
 - [x][F] [x][R] QR Kod Oluşturucu: sabit takip URL'si ile Play Store yönlendirme, indirme ve tarama sayımı
+- [x][F] [ ][R] Flutter reklam yönetimi aktif reklam türünde birim ID zorunlu tutar; backend kaydı başarısızsa yerel ayarı yazmaz ve yanlış başarı mesajı göstermez
+- [x][F] [ ][R] Flutter reklam config ve QR istatistik yükleme hataları görünür tekrar dene durumuna sahiptir
 - [-][F] [x][R] Pazarlama ekranı AdMob bilgilerini veritabanındaki `ad_config` kaydından okur ve günceller
+- [-][F] [x][R] Pazarlama ekranı bağımsız sayfa olarak ayrıldı (2026-07-04): `AdminMarketing.jsx` ~411 satır yeni dosya olarak oluşturuldu; `AdminSettings.jsx`'ten taşındı.
 
 ### Sürücü Kursları ve Başvurular Yönetimi
 - [-][F] [x][R] Admin Panelinde Sürücü Kursları sekmesi: tüm kursları listeleme, ekleme, düzenleme, silme ve aktif/pasif yapma.
@@ -216,9 +243,34 @@
 - [-][F] [x][R] E-posta Entegrasyonu: başvuru e-posta adresini (`contact_email`) dinamik ayarlama ve başvurunun ilgili sürücü kursunun mail adresine de iletilmesi.
 - [-][F] [x][R] Web admin sürücü kursları sayfası header'ına toplam/aktif/sponsorlu/şehir sayaç kartları eklendi; header section wrapper ile tutarlı hale getirildi
 
+### Destek Yönetimi (güncelleme 2026-07-04)
+- [-][F] [x][R] Web admin destek ekranı tam yeniden tasarım (2026-07-04): `AdminSupport.jsx` ~559 satıra yeniden yazıldı; chat UI, yeniden açma butonu ve silme özelliği modernize edildi.
+- [x][F] [ ][R] Flutter destek ekranı `data` response alanını kullanır; yeni/açık/kapalı sayaçları, arama/filtre, konuşma sheet'i, admin cevabı, kapat ve yeniden aç akışları tamamlandı
+
 ### Sistem Araçları
 - [x][F] [x][R] İşlem günlükleri (Admin Dashboard özetleri)
 - [x][F] [x][R] İşlem günlükleri ikinci sekmesi gerçek crash log değil, `ExamResult.score < 50` kayıtlarından oluşan "Düşük Skorlar" listesidir
 - [x][F] [x][R] Bakım modu toggle
 - [x][F] [x][R] Bakım modu durumu hem `isMaintenance` hem `enabled` alanlarıyla okunur; admin bakım modunda panele erişmeye devam eder
 - [x][F] [x][R] Veri yedekleme (JSON export)
+
+---
+
+## Backend Güvenlik ve Altyapı Güncellemeleri (2026-07-04)
+
+### Güvenlik (c5fc187)
+- [x][F] [x][R] `app.js`: Helmet güvenlik başlıkları, rate limiting, compression middleware, CORS iyileştirmeleri ve payload boyut sınırı eklendi
+- [x][F] [x][R] `auth.js` middleware: `TokenExpiredError` için özel hata mesajı, opsiyonel koruma modu eklendi
+- [x][F] [x][R] `userController.js`: rol/pro/durum toggle regex injection koruması eklendi
+
+### Controller Güncellemeleri (c5fc187)
+- [x][F] [x][R] `authController.js`: profil güncelleme, şifre değiştirme, avatar yükleme ve hesap silme güçlendirildi
+- [x][F] [x][R] `examResultController.js`: skor normalizasyonu, kategori bazlı istatistikler ve liderboard güncellendi
+- [x][F] [x][R] `postController.js`: gövde doğrulama, etiket limitleri ve yorum bildirimleri eklendi
+- [x][F] [x][R] `notificationController.js`: broadcast geçmişi ve FCM push entegrasyonu genişletildi
+- [x][F] [x][R] `adminController.js`: bakım modu, log, yedekleme ve ayarlar endpoint'leri güncellendi
+- [x][F] [x][R] `subscriptionController.js`: kupon + plan yönetimi endpoint'leri genişletildi
+- [x][F] [x][R] `rewardController.js`: reklam ödül sistemi güncellendi
+- [x][F] [x][R] `examController.js`: soru yönetimi ve sınav güvenlik kontrolleri güncellendi
+- [x][F] [x][R] `questionController.js`: soru doğrulama ve aktiflik kontrolleri güçlendirildi
+- [x][F] [x][R] `badgeAwardService.js`: rozet kazanım kriteri kontrolleri (`exam_count`, `question_count`, `correct_count`, `streak`, `daily_goal`, `success_rate`) genişletildi

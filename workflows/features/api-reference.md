@@ -22,13 +22,20 @@ DELETE /auth/me                  ← hesap sil
 GET    /auth/admin-stats
 
 # Users
-GET    /users
+GET    /users?page=&limit=&search=&filter=&sort=
+       filter: all|user|admin|pro|active|suspended|online|waiting_first_test
+       response: { users, total, page, pages, summary: { totalUsers, adminCount, proCount, suspendedCount } }
+GET    /users/:id
 PUT    /users/:id/role
 PUT    /users/:id/pro
 PUT    /users/:id/status            ← admin: kullanıcıyı askıya al / aktif et (`isActive`)
 DELETE /users/:id
+GET    /users/me                    ← kullanıcının profil/ödül özet alanları
 GET    /users/settings              ← kullanıcı: günlük hedef + bildirim ayarları
 PUT    /users/settings              ← kullanıcı: dailyGoal, notifEnabled, notifHour, notifMinute
+GET    /users/favorites
+POST   /users/favorites/:questionId
+DELETE /users/favorites/:questionId
 
 # Categories
 GET    /categories
@@ -114,16 +121,24 @@ POST   /rewards/ad-completed         ← kullanıcı: izlenen reklamı bildir ve
 
 
 # Posts (Feed)
-GET    /posts
-POST   /posts
-PUT    /posts/:id/approve
-PUT    /posts/:id/reject
-DELETE /posts/:id
+GET    /posts?page=&limit=&type=               ← kullanıcı: yalnızca onaylı akış
+POST   /posts                                  ← kullanıcı: pending gönderi oluşturur
+GET    /posts/user/:userId
+GET    /posts/:id
+POST   /posts/:id/like
+POST   /posts/:id/comment
+POST   /posts/:id/comment/:commentId/like
+GET    /posts/admin/all?status=                ← admin
+GET    /posts/admin/pending                    ← admin
+PATCH  /posts/:id/approve                      ← admin
+PATCH  /posts/:id/reject                       ← admin
+DELETE /posts/:id                              ← admin
 
 # Contact (Destek)
 GET    /contact                      ← admin: tüm talepler
 GET    /contact/my                   ← kullanıcı: kendi talepleri
 POST   /contact
+GET    /contact/:id                  ← admin: tekil talep
 POST   /contact/:id/reply            ← admin yanıtı
 POST   /contact/:id/user-reply       ← kullanıcı yanıtı
 PUT    /contact/:id                  ← durum güncelle (kapat)
@@ -167,8 +182,10 @@ DELETE /notifications
 POST   /notifications/fcm-token
 POST   /notifications/send-global              ← admin: tüm kullanıcılara sistem bildirimi
 POST   /notifications/broadcast              ← admin
+       body: { title, body, target: all|pro|free|waiting_first_test, imageUrl? }
+       response: { success, sentCount, tokenCount, pushSent, errorDetails, data }
 POST   /notifications/targeted               ← admin: seçili kullanıcılara bildirim
-GET    /notifications/broadcast-history      ← admin
+GET    /notifications/broadcast-history      ← admin: `{ data, audience: { all, pro, free, waiting_first_test } }`
 DELETE /notifications/broadcast-history/:id  ← admin
 GET    /notifications/debug-tokens            ← admin: FCM token istatistikleri
 
@@ -184,6 +201,7 @@ GET    /admin/user-logs             ← düşük skor logları; `ExamResult.scor
 
 # Subscriptions
 GET    /subscriptions/plans
+GET    /subscriptions/admin/plans        ← admin: pasifler dahil
 POST   /subscriptions/plans              ← admin
 PUT    /subscriptions/plans/:planId      ← admin
 DELETE /subscriptions/plans/:planId      ← admin
@@ -196,8 +214,12 @@ PUT    /subscriptions/coupons/:id        ← admin
 DELETE /subscriptions/coupons/:id        ← admin
 
 # Reports
-GET    /reports
-PUT    /reports/:id
+POST   /reports                         ← kullanıcı: soru veya gönderi raporla
+       body: { questionId?, postId?, reason, description? }; hedeflerden yalnızca biri zorunlu
+GET    /reports?status=&targetType=     ← admin
+       questionId ve postId hedefe göre populate edilir
+PUT    /reports/:id/status             ← admin: open|resolved|rejected
+DELETE /reports/:id                    ← admin
 
 # Driving Schools & Applications
 GET    /driving-schools                          ← public: list active schools, supports ?city=&district=&q=&isSponsored=

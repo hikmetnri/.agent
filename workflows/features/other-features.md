@@ -29,7 +29,7 @@
 
 ### Pazarlama Araçları
 - [x][F] [x][R] Marketing QR kodu oluşturma ve paylaşma
-- [ ][F] [ ][R] QR tarama istatistikleri (Gelecek faz)
+- [x][F] [x][R] QR tarama istatistikleri: admin pazarlama ekranında sabit takip URL'sinin tarama sayısı backend'den gösterilir; yükleme hatası gerçek `0` gibi sunulmaz
 - [ ][F] [ ][R] Sürücü kursu başvuru/lead sistemi (Gelecek faz; kullanıcılar kurs kartlarındaki formdan "Başvuru Yap" veya "Bilgi Al" talebi gönderir, veriler user/kurs/ehliyet sınıfı/mesaj ile `DrivingSchoolLead` tablosuna kaydedilir ve admin panelinde durumu yönetilir. Gelir modeli olarak kayıt başı komisyon veya lead satışı hedeflenir).
 
 ### Sistem Güvenliği ve Bakım

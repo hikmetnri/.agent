@@ -13,6 +13,19 @@
 - Web auth token kalıcı `localStorage` yerine `sessionStorage` içinde tutulur; eski `localStorage.token` her API başlangıcında temizlenir.
 - `401` veya askıya alınmış kullanıcı `403` cevabında token, kullanıcı ve son ziyaret kategori cache'i temizlenerek login ekranına dönülür.
 - Hesap silme sayfası web token'ı `sessionStorage` üzerinden okur; başarılı silme sonrası `sessionStorage` ve `localStorage` oturum verilerini temizler.
+- `api/index.js` 401 interceptor'ı (2026-07-04): token geçersizleşince localStorage/sessionStorage temizlemenin yanı sıra `useAuthStore.getState().logout()` çağrılarak Zustand store'daki `user` state'i de sıfırlanır.
+- `authStore.js` `logout` action'ı (2026-07-04): sessionStorage ve localStorage temizliğini kapsar; tüm oturum verisi tek noktadan temizlenir.
+
+## 5.2 BACKEND GÜVENLİK ALTYAPISI (2026-07-04)
+
+- `app.js`: `helmet` güvenlik başlıkları, express-rate-limit, compression, CORS origin listesi ve JSON payload boyut sınırı (`10mb`) eklendi.
+- `auth.js` middleware: `TokenExpiredError` için ayrı `401` mesajı (`Token süresi dolmuş`); `optionalAuth` ile korumasız route'larda token varsa decode edilir, yoksa devam edilir.
+- `userController.js`: ad, soyad, e-posta arama alanlarında regex injection koruması için `$regex` sorguları `escapeRegex` ile sanitize edilir.
+- `authController.js`: profil güncelleme izin verilen alan listesi (`allowedFields`) ile güçlendirildi; şifre değiştirme mevcut şifre doğrulaması zorunlu; avatar yükleme Cloudinary'ye doğrudan; hesap silme cascade temizlik yapar.
+- `examResultController.js`: `score` alanı `correctCount/totalQuestions*100` olarak normalize edilir; eski `correctAnswers` legacy fallback korunur; liderboard `userId` alanıyla döner.
+- `postController.js`: yeni gönderi kimliği oturumdaki kullanıcıdan alınır; etiket sayısı en fazla 10'dur; yeni yorum eklenince gönderi sahibine `feed` tipinde bildirim gönderilir.
+- `notificationController.js`: broadcast geçmişi `BroadcastHistory` modeline kaydedilir; `POST /notifications/broadcast` gönderim sonucu `sentCount`, `tokenCount`, `pushSent`, `errorDetails` döndürür; geçersiz FCM token'lar otomatik temizlenir.
+- `badgeAwardService.js`: her sınav sonrası `exam_count`, `question_count`, `correct_count`, `streak`, `daily_goal`, `success_rate` kriterleri kontrol edilir; kazanılan rozetler `User.earnedBadges` dizisine eklenir ve `achievement` tipinde bildirim gönderilir.
 
 ---
 
@@ -89,6 +102,8 @@
 - Admin broadcast / hedefli bildirim / yeni sınav / destek mesajı akışları hem `Notification` kaydı hem FCM push üretir
 - Web push için FCM web SDK kullanılacak
 - Rate limiting: backend'de mevcut, 429 hatalarını handle et
+- Gönderi formu için etkin Mongo model sınırı başlıkta 200, içerikte 2000 karakterdir. Controller sabitleri şu an daha yüksek (`300/5000`) olduğundan web ve Flutter formları backend katmanları eşitlenene kadar düşük model sınırını esas almalıdır.
+- İçerik raporunda `questionId` ve `postId` alanlarından yalnızca biri bulunur. Kullanıcı aynı hedef için birden fazla açık rapor oluşturamaz ve kendi gönderisini raporlayamaz.
 
 ---
 
@@ -118,7 +133,8 @@ Category {
 
 Question {
   _id, text, options[], correctAnswer (index),
-  testType (short_test|mock_exam|real_exam|exam), subject (trafik|ilkyardim|motor|adabi|''),
+  testType (short_test|mock_exam|real_exam|exam),
+  subject (B: trafik|ilkyardim|motor|adabi; İş Makinesi: isg|operator|trafik|motor|adabi|''),
   media (URL), explanation,
   difficulty (easy|medium|hard), coefficient,
   category (ref), exam (ref),
@@ -131,6 +147,10 @@ Exam {
   _id, name, description, duration (dk), categoryId,
   isPro, isActive, isMiniTest, testType (short_test|mock_exam|real_exam|exam), order
 }
+
+- Yeni sınav kaydı için admin iş bölümü: `real_exam` yalnızca Sınav Yönetimi; `mock_exam` İçerik > Deneme; `short_test` İçerik > Kısa Test.
+- Gerçek sınav/deneme ana kategorisi yalnızca B Sınıfı veya İş Makinesi/Operatör/İSG kökü olabilir.
+- Branş etiketi sınavın kategori üst zincirinden türetilir; İş Makinesi sınavında B Sınıfı branş etiketleri kullanılmaz.
 
 ExamResult {
   _id, user (ref), examId, examName, testType,
@@ -166,6 +186,14 @@ Post {
   likes[], comments[{ userId, userName, text }]
 }
 
+Report {
+  _id, targetType (question|post),
+  questionId (ref|null), postId (ref|null), userId (ref),
+  reason (wrong_answer|wrong_question|typo|inappropriate|spam|harassment|misinformation|copyright|other),
+  description, status (open|resolved|rejected),
+  createdAt, updatedAt
+}
+
 ContactMessage {
   _id, userId, subject,
   messages[{ sender (user|admin), text, sentAt }],
@@ -188,7 +216,7 @@ Notification {
 }
 
 BroadcastHistory {
-  _id, title, body, target (all|pro|free),
+  _id, title, body, target (all|pro|free|waiting_first_test),
   sentCount, createdBy
 }
 
