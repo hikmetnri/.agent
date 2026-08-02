@@ -7,6 +7,7 @@ Bu klasor uygulamaya eklenecek medya dosyalari icin gecici alandir. Dosyalari Fl
 - `content-images/`: Konu kapaklari, ders ici gorseller, thumbnail gorselleri.
 - `signs/`: Trafik, ISG, is makinesi veya benzeri levha gorselleri.
 - `videos/`: Uygulamada kullanilacak video dosyalari veya YouTube link notlari.
+- `cloudinary-yapisi/`: Cloudinary'deki klasor yapisinin birebir kopyasi (klasor agaci + her klasorun mevcut dosya listesi). Yeni resim/animasyon/levha eklerken dosyayi buradaki dogru klasore birak, Cloudinary ile otomatik eslensin. Detay: `cloudinary-yapisi/README.md`.
 
 ## Codex'e Soylenecek Ornekler
 

@@ -135,7 +135,7 @@ Değerlendirme davranışı:
 
 Son değerlendirme paketi yedeği:
 
-`scripts/backups/work-machine-assessments-2026-08-01T19-07-46-877Z.json`
+`scripts/backups/work-machine-assessments-2026-08-01T19-14-16-994Z.json`
 
 Web ve Flutter yönetim panellerindeki iş makinesi soru formu da aynı dört resmî teorik
 branşı gösterir. B sınıfının dört branşı değiştirilmemiştir.
