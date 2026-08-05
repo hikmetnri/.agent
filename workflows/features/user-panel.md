@@ -113,12 +113,20 @@ Misafir modu, kullanıcının kayıt olmadan uygulamayı deneyebileceği sınır
 ## 2.4 Kısa Testler ve Genel Denemeler (Pekiştirme)
 - [x][F] [x][R] 3 Sekmeli Yapı: Kısa Testler / Deneme / Yanlışlarım
 - [x][F] [x][R] Kısa Testler sekmesinde Accordion (Modül bazlı aç-kapa) gruplandırma
+- [x][F] [ ][R] Her yaprak konu için en fazla bir kısa test vardır; test ayrı
+  sınav kaydı yerine konuya bağlı tüm `short_test` sorularından oluşur
+- [x][F] [ ][R] Kısa test kartı gerçek soru sayısını kullanır; 8/10 önerisi teknik
+  üst sınır değildir ve 10'dan fazla sorulu uzun konu testi çözülebilir
+- [x][F] [ ][R] Kullanıcının seçtiği B Sınıfı / İş Makinesi kapsamı kısa test ve
+  deneme listelerine katı uygulanır
 - [x][F] [x][R] Tamamlanan konular yeşil işaretlenir
 - [x][F] [x][R] İlk 5 test ücretsiz, sonrası kilitli (Paywall veya Ödüllü Reklam ile kilidi açma seçeneği sunulur)
 - [x][F] [x][R] Kilitli sınav ve kategorileri (PRO veya index >= 5) ödüllü video izleyerek anlık açma (`adUnlockedExamIds` entegrasyonu)
 - [x][F] [x][R] Teste Başla → İşaretleme sonrası anında geri bildirim (Mock mode)
 - [x][F] [x][R] Yanlış cevaplanan sorular için "Doğru Cevap + Açıklama" gösterimi
 - [x][F] [x][R] Deneme sınavları `mock_exam` sorularını `examId` ile çeker; gerçek sınavlardan ayrı listelenir
+- [x][F] [ ][R] Deneme soruları her oturum başlangıcında karıştırılır; adminin
+  ekleme sırası kullanıcıya sabit soru sırası olarak yansımaz
 - [x][F] [x][R] Deneme ve gerçek sınav soruları `subject` alanıyla ayrılır: `trafik`, `ilkyardim`, `motor`, `adabi`
 - [x][F] [x][R] Görsel ağırlıklı sorularda boş şık metni olsa bile seçenekler `A/B/C/D` fallback ile gösterilir; görüntüdeki şıklar ayrı analiz edilmeden butonlar boş bırakılmaz
 - [x][F] [x][R] Yanlışlarım sekmesi backend ve lokal yanlış cevap kayıtlarını birleştirir
@@ -145,20 +153,35 @@ Misafir modu, kullanıcının kayıt olmadan uygulamayı deneyebileceği sınır
 ---
 
 ## 2.5 MEB E-Sınav Simülasyonu (Gerçek Sınav)
-- [x][F] [x][R] Sınavlar ekranı yalnızca gerçek sınavları listeler; deneme isimli sınavlar bu ekranda gizlenir
+- [x][F] [ ][R] Sınavlar ekranı isim kontrolü yerine `real_exam`/legacy `exam`
+  `testType` filtresi kullanır ve seçili kullanıcı kategorisi dışındaki sınavları göstermez
 - [x][F] [x][R] Kompakt üst kart: sınav sayısı, süre, soru sayısı ve sonuçlara hızlı erişim
+- [x][F] [ ][R] Üst kart ve sınav kartları sabit değer yerine kayıttaki gerçek
+  süreyi kullanır; farklı sınav yapılarında soru bilgisi `Sınava göre` gösterilebilir
 - [x][F] [x][R] Gerçek sınav kartları: ikon, süre rozeti, karma test rozeti, kilit/aksiyon durumu
 - [x][F] [x][R] MEB E-Sınav Simülatörü Kartı (backend sınav kaydı + `real_exam` soruları)
 - [x][F] [x][R] Başlatma Info Ekranı (Girilen test moduna göre dinamik kurallar)
+- [x][F] [ ][R] Başlatma bilgisinde gerçek süre, anlık doğru/yanlışın kapalı olduğu
+  ve geçti/kaldı sonucunun sınav sonunda açıklanacağı açıkça gösterilir
 - [x][F] [x][R] Geri sayım timer (Normal/Uyarı/Tehlike renk bildirimleri)
+- [x][F] [ ][R] Timer sorular başarıyla yüklendikten sonra başlar; sorular her
+  gerçek sınav oturumunda yeniden karıştırılır
 - [x][F] [x][R] İlerleme çubuğu (X/toplam) navigasyon tracker
 - [x][F] [x][R] Şık seçimi (Anında cevap yok, seçim silinebilir/değiştirilebilir)
+- [x][F] [ ][R] Seçilen cevap soru değiştirip geri dönüldüğünde korunur; sınav
+  bitmeden doğru/yanlış renk veya açıklaması gösterilmez
 - [x][F] [x][R] Soru listesi / hızlı soru navigasyonu: quiz ve gerçek sınav modlarında sorulara bottom sheet/liste üzerinden geçiş desteklenir
 - [x][F] [x][R] Önceki/Sonraki butonları + Footer nokta navigasyonu
 - [x][F] [x][R] Soruyu raporla butonu
 - [x][F] [x][R] Sınavı teslim et onay dialogu
-- [x][F] [x][R] Analiz Sonucu: Geçti/Kaldı (70 Puan Eşiği), karne ve XP
+- [x][F] [ ][R] Boş soruyla teslimde gerçek boş soru sayısı `N boş soru yanlış
+  kabul edilecek` şeklinde gösterilir; kullanıcı sorulara dönebilir
+- [x][F] [ ][R] Aktif sınavdan geri/X ile çıkışta ilerleme kaybı onayı gösterilir
+- [x][F] [ ][R] Analiz Sonucu geçti/kaldı kararını sınavın `passingScore`
+  değerinden alır; 70 yalnızca varsayılandır
 - [x][F] [x][R] Sınav sonucu backend'e postlanır
+- [x][F] [ ][R] Sonuç payload'ı sınav kimliği/türü/kategorisi, gerçek süre,
+  doğru-yanlış, skor ve yanlış soru detaylarını eksiksiz taşır
 - [x][F] [x][R] Geçmiş deneme sınav sonuçları arşivi (Ayrıntılı liste)
 - [x][F] [x][R] Sınav detayı görüntüleme (Hatalı soruların listesi)
 

@@ -2,8 +2,10 @@
 
 Bu klasor Ehliyet Yolu projesinin kalici feature hafizasidir.
 
-Son kapsam denetimi: 2026-07-29 — Flutter admin/sinav/rapor/yönetim araci
-degisiklikleri, gercek backend route'lari ve React web aktarim aciklari esitlendi.
+Son kapsam denetimi: 2026-08-04 — Kisa test, deneme ve gercek sinav sistemi
+Flutter referansina gore yeniden tanimlandi; backend kurallari ve React web aktarim
+aciklari ayrintili esleme belgesine islendi. React admin icin tum sinav turlerinin
+tek Sinav Yonetimi route'unda toplanmasi kesin urun karari olarak kaydedildi.
 
 Ana kaynak:
 
@@ -54,3 +56,6 @@ Bu durumda final cevapta "features guncellemesi gerekmedi" diye belirtilir.
 - `github-audit-*.md`: GitHub commit gecmisiyle feature hafizasi karsilastirmalari.
 - `mobile-admin-sync-2026-07-29.md`: Flutter admin panelindeki son sinav, icerik,
   istatistik, profil ve yonetim araci davranislarinin React web esleme sozlesmesi.
+- `exam-system-flutter-reference-2026-08-04.md`: Kisa test, deneme ve gercek sinav
+  sisteminin Flutter referansi; backend kurallari, kullanici akisi ve React web'e
+  birebir aktarim kontrol listesi.

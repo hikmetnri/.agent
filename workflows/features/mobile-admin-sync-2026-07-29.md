@@ -29,9 +29,13 @@ tarafı burada yazan iş kurallarını koruyup kendi bileşen sistemine uyarlama
 
 ### 3.1 Sorumluluk ayrımı
 
-- **Sınav Yönetimi** yalnızca gerçek sınav (`real_exam`) oluşturur ve yönetir.
-- **İçerik > Deneme** yalnızca deneme (`mock_exam`) sınavlarını/sorularını yönetir.
-- **İçerik > Kısa Test** yalnızca kısa test (`short_test`) sorularını yönetir.
+- **Flutter Sınav Yönetimi** yalnızca gerçek sınav (`real_exam`) oluşturur ve yönetir.
+- **Flutter İçerik > Deneme** yalnızca deneme (`mock_exam`) sınavlarını/sorularını yönetir.
+- **Flutter İçerik > Kısa Test** yalnızca kısa test (`short_test`) sorularını yönetir.
+- **React web Sınav Yönetimi** ayrı İçerik route'u kullanmadan `Kısa Test`,
+  `Deneme` ve `Gerçek Sınav` alt görünümlerinin tamamını tek merkezde yönetir.
+- React mobil görünüm aynı tek merkez yapısını korurken Flutter'ın görsel bileşen,
+  segment, kart, form ve responsive davranışlarını birebir referans alır.
 - Legacy `exam` değeri okunabilir; yeni kayıtlar `real_exam` veya `mock_exam` yazmalıdır.
 
 ### 3.2 Sınav ana kategorileri
@@ -61,11 +65,10 @@ Kök bulma Türkçe karakterlerden bağımsız normalize edilir. İş makinesi e
 
 | API `subject` | UI etiketi |
 |---|---|
-| `isg` | İSG, Çevre ve Kalite |
-| `operator` | İş Makineleri ve Kullanımı |
-| `trafik` | Nakil ve Trafik Güvenliği |
-| `motor` | Kontrol, Bakım ve Teknik |
-| `adabi` | Meslek Etiği ve Gelişim |
+| `operator_isg` | İSG, Çevre ve Kalite |
+| `operator_machines` | İş Makinesi Türleri |
+| `operator_transport` | Nakil ve Trafik Güvenliği |
+| `operator_ethics` | Meslek Etiği ve Gelişim |
 
 Soru formundaki branşlar seçilen sınavın kök kategorisine göre değişir. Sınav kartı ve branş
 istatistikleri de aynı sözlüğü kullanmalıdır; İş Makinesi sınavında B Sınıfı başlıkları
@@ -84,6 +87,28 @@ gösterilmemelidir.
 - [x][F] [x][R] Üst segment yalnızca B Sınıfı ve İş Makinesi seçeneklerinden oluşur.
 - [x][F] [x][R] Sınav/soru sayaçları, branş filtresi ve sınav kartı dağılımı aktif
   sınıfa göre yeniden hesaplanır.
+
+### 3.6 2026-08-04 Flutter sınav farkları
+
+Aşağıdaki maddeler mevcut genel web sınav ekranından daha yeni Flutter davranışlarıdır.
+React tarafı ancak `exam-system-flutter-reference-2026-08-04.md` kabul testleriyle
+birlikte tamamlandığında işaretlenmelidir.
+
+- [x][F] [ ][R] Kısa test ayrı sınav kaydı değildir; yaprak konuya bağlı tek test
+  ve sınırsız gerçek soru sayısı modeli kullanır.
+- [x][F] [ ][R] Konu ağacı bağlı kısa test soru sayısını gösterir.
+- [x][F] [ ][R] Deneme/gerçek sınav kartları branş başına soru sayısını canlı gösterir.
+- [x][F] [ ][R] B Sınıfı 45, İş Makinesi 50 dakika varsayılanıyla açılır; gerçek
+  süre ve dinamik geçme notu bütün ekranlarda korunur.
+- [x][F] [ ][R] Kullanıcı gerçek sınav listesi seçili kategori + `testType`
+  birleşimiyle katı filtrelenir.
+- [x][F] [ ][R] Deneme/gerçek sınav soruları oturum başında karıştırılır.
+- [x][F] [ ][R] Gerçek sınav timer'ı soru yüklemeden sonra başlar; doğru/yanlış
+  sınav bitmeden açıklanmaz.
+- [x][F] [ ][R] Soru listesi, cevap durumu, boş soru sayılı teslim uyarısı ve
+  çıkış koruması Flutter ile aynı davranır.
+- [x][F] [ ][R] Sonuç payload'ı gerçek sınav kimliği, türü, kategorisi, süresi,
+  geçme notu ve yanlış soru detaylarıyla backend doğrulamasına gider.
 
 ## 4. İstatistik ve profil
 
@@ -139,6 +164,9 @@ gösterilmemelidir.
 
 ## 6. React web geçiş kontrolü
 
+- [ ] Sınav Yönetimi route'una Kısa Test / Deneme / Gerçek Sınav üçlü alt görünümünü ekle.
+- [ ] Mobil React görünümünü Flutter sınav yönetimi kartları, filtreleri, formları ve
+  alt aksiyonlarıyla birebir görsel/davranışsal eşle.
 - [ ] Bu dosyadaki `[ ][R]` maddelerini mevcut React ekranlarıyla tek tek karşılaştır.
 - [ ] Aynı endpoint ve enum değerlerini kullan; Flutter etiketlerini API değeri olarak yazma.
 - [x] Dashboard için mobildeki gerçek davranışı webdeki responsive bileşen sistemine taşı.

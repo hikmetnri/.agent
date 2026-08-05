@@ -61,6 +61,14 @@
 
 ### Sorular — Kısa Testler
 - [x][F] [x][R] 3 seviyeli accordion: Ana kategori → Alt kategori → Konu
+- [x][F] [ ][R] Kısa test ayrı `Exam` kaydı değildir; aynı yaprak konu altındaki
+  `short_test` soruları o konunun tek pekiştirme testini oluşturur
+- [x][F] [ ][R] B Sınıfı / İş Makinesi segmenti konu listesini seçilen eğitim
+  köküyle sınırlar; iki eğitim ağacının başlıkları birbirine karışmaz
+- [x][F] [ ][R] Yaprak konu başlığında bağlı kısa test soru sayısı gösterilir;
+  konu ağacından hangi testin hazır/eksik olduğu saymadan anlaşılır
+- [x][F] [ ][R] Kısa test soru sayısında 8/10 üst sınırı yoktur; trafik levhaları
+  gibi uzun konular gerçek soru sayısıyla listelenir
 - [x][F] [-][R] Flutter soru yönetimi alt tabları emoji yerine ikonlu kısa etiketlere çekildi; kontrol satırı küçük ekranda wrap davranışı kazanır
 - [x][F] [-][R] Flutter soru kartları kompakt aksiyon satırlı düzene alındı; doğru/yanlış/başarı rozetleri kısa etiketlerle taşmasız gösterilir
 - [x][F] [x][R] Her konunun altında soru listesi
@@ -78,6 +86,14 @@
 - [x][F] [x][R] Sınav atanmamış sorular ayrı grupta
 - [x][F] [x][R] Deneme ve gerçek sınav soruları ayrı `testType` ile tutulur: `mock_exam`, `real_exam` (`exam` legacy fallback)
 - [x][F] [x][R] Sınav sorularında konu ayrımı zorunlu veri alanı olarak kullanılır: `trafik`, `ilkyardim`, `motor`, `adabi`
+- [x][F] [ ][R] Denemede önce sınav oluşturulur, sonra soru/CSV seçilen `examId`
+  kaydına bağlanır; sınav seçmeden soru kaydedilemez
+- [x][F] [ ][R] Sınav kartında toplam soruya ek olarak branş başına bağlı soru
+  sayısı gösterilir ve ekleme/silme sonrası yeniden hesaplanır
+- [x][F] [ ][R] Soru formundaki branş seçenekleri B Sınıfı ve İş Makinesi için
+  dinamik sözlükten gelir; İş Makinesi seçiliyken B Sınıfı etiketi gösterilmez
+- [x][F] [ ][R] Sınav soru yönetimi uzun başlıkta ellipsis ve ayrılmış aksiyon
+  alanı kullanır; CSV/yenile/sıralama kontrolleri dar ekranda taşmaz
 
 ### Sözler (Motivasyon)
 - [x][F] [x][R] Söz listesi: yazar + söz metni
@@ -96,20 +112,41 @@
 ---
 
 ## 1.4 Sınav Yönetimi
+- [x][F] [ ][R] Kesin React web bilgi mimarisi: ayrı İçerik alanı kullanılmadan
+  Kısa Test, Deneme ve Gerçek Sınav tek `Sınav Yönetimi` route'unda üç alt
+  görünüm/sekme olarak yönetilecek
+- [x][F] [ ][R] React mobil admin Sınav Yönetimi; Flutter'daki segment, kart,
+  sayaç, form, modal ve responsive taşma davranışını birebir referans alacak;
+  masaüstü aynı veriyi geniş grid/tablo düzeninde gösterebilecek
 - [x][F] [x][R] Sınav listesi
 - [x][F] [x][R] Deneme sınavları ve gerçek sınavlar admin arayüzünde ayrı yönetilir; `mock_exam` ve `real_exam` `testType` değerleri korunur
 - [x][F] [x][R] Sınav Yönetimi yalnızca `real_exam` oluşturur; `mock_exam` İçerik > Deneme, `short_test` İçerik > Kısa Test altında yönetilir
 - [x][F] [x][R] Sınav oluşturma ve liste filtreleri yalnızca B Sınıfı ile İş Makinesi/Operatör/İSG köklerini gösterir
-- [x][F] [x][R] Soru branşları seçilen sınav sınıfına göre dinamik değişir: B Sınıfı `trafik|ilkyardim|motor|adabi`; İş Makinesi `isg|operator|trafik|motor|adabi`
+- [x][F] [x][R] Soru branşları seçilen sınav sınıfına göre dinamik değişir:
+  B Sınıfı `trafik|ilkyardim|motor|adabi`; İş Makinesi
+  `operator_isg|operator_machines|operator_transport|operator_ethics`
 - [x][F] [x][R] Web Sınav Merkezi B Sınıfı / İş Makinesi segmentleri, kategoriye özel sınav sayaçları ve dinamik branş dağılım kartları kullanır
 - [x][F] [-][R] Flutter admin sınav ekranı modern yönetim görünümüne çekildi: kompakt arama/filtre, özet kartları, inline soru yönetimi, düzenle/sil aksiyonları
 - [x][F] [-][R] Flutter sınav yönetimi başlığı, branş dağılımı ve aksiyon satırları küçük ekranda taşma riskine karşı sıkılaştırıldı
 - [x][F] [x][R] Yeni sınav oluştur: isim, süre, kategori, Pro toggle
+- [x][F] [ ][R] Gerçek sınav oluştururken B Sınıfı süre varsayılanı 45 dakika,
+  İş Makinesi süre varsayılanı 50 dakikadır; süre 1–180, geçme notu 0–100 doğrulanır
+- [x][F] [ ][R] Gerçek sınav kartı kayıttaki gerçek süreyi, geçme notunu ve
+  branş dağılımını gösterir; sabit 45 dakika/50 soru varsayımı yapmaz
+- [x][F] [ ][R] Aktif kategorisi veya aktif sorusu olmayan sınav yayınlanamaz;
+  soru türü bağlı sınavın `testType` değeriyle eşleşmek zorundadır
 - [x][F] [x][R] Sınava soru ekle/çıkar
 - [x][F] [x][R] Sınav sonuçlarını görüntüle
-- [x][F] [x][R] Yeni sınav oluşturulunca tüm kullanıcılara uygulama içi bildirim + FCM push gönderilir
+- [x][F] [ ][R] Sınav yayınlandığında uygulama içi bildirim + FCM öncelikle
+  sınavın kategorisini seçmiş aktif kullanıcılara gönderilir; kategori tercihi boş
+  eski kullanıcılar geriye uyumluluk için hedeflenebilir
+- [x][F] [ ][R] Sınav silme fiziksel silme yapmaz; sınavı ve bağlı aktif soruları
+  pasife alarak geçmiş sonuçların referansını korur
 - [x][F] [x][R] Sınav bildirimi gönderiminde geçersiz FCM token'lar otomatik temizlenir
 - [x][F] [x][R] Bildirim gönder (Duyuru modülü üzerinden)
+
+Sınav sisteminin tam Flutter davranış ve React aktarım sözleşmesi:
+`exam-system-flutter-reference-2026-08-04.md`.
 
 ---
 

@@ -49,17 +49,36 @@ DELETE /categories/:id
        `publicationAction=save_draft|publish` ile ders içeriği taslak/yayın akışı yönetilir.
 
 # Questions
-GET    /questions
+GET    /questions?categoryId=&examId=&testType=
 POST   /questions
 PUT    /questions/:id
 DELETE /questions/:id
 POST   /questions/bulk-csv          ← admin: CSV toplu soru ekleme
 
+Question kuralları:
+- `short_test`: `category` zorunlu, ayrı sınav kaydı yoktur.
+- `mock_exam|real_exam|exam`: `exam` zorunludur ve bağlı sınavın `testType`
+  değeri soru türüyle eşleşmelidir.
+- En az iki şık ve `options[]` içinde geçerli sıfır tabanlı `correctAnswer` gerekir.
+- Normal kullanıcı sınav sorularında yalnızca aktif/yayınlanmış sınavların
+  sorularını okuyabilir; admin taslakları yönetebilir.
+
 # Exams
-GET    /exams?categoryId=&testType= ← `testType`: short_test | mock_exam | real_exam | exam
+GET    /exams?categoryId=&testType=&admin= ← `testType`: mock_exam | real_exam | exam
+GET    /exams/:id
 POST   /exams
 PUT    /exams/:id
+PUT    /exams/:id/publish           ← admin: geçerli kategori + en az bir aktif soru zorunlu
 DELETE /exams/:id
+
+Exam kuralları:
+- `POST /exams` kısa test oluşturmaz; `isMiniTest=true` reddedilir.
+- `categoryId` zorunlu ve aktif olmalıdır.
+- Süre 1–180, geçme notu 0–100 aralığındadır; varsayılan süre B Sınıfında 45,
+  İş Makinesinde 50, varsayılan geçme notu 70'tir.
+- Public liste yalnızca aktif/yayınlanmış kayıtları döndürür. Admin
+  `admin=true` ile taslakları da isteyebilir.
+- Silme soft-delete yapar ve bağlı aktif soruları da pasife alır.
 
 # ExamResults
 GET    /exam-results
@@ -68,6 +87,14 @@ GET    /exam-results/stats
 GET    /exam-results/leaderboard?period=daily|weekly|monthly|all
 GET    /exam-results/user/:userId/stats        ← admin
 GET    /exam-results/analytics/:examId         ← admin
+
+ExamResult kuralları:
+- `examId` varsa backend aktif sınavı yeniden okur ve istek `testType` değerini
+  sınavla doğrular.
+- Sınav adı/kategorisi/geçme notu sınav kaydından alınır; `passed` dinamik
+  `passingScore` ile hesaplanır.
+- Sonuç yanlış soru metni, seçenekler, kullanıcı/doğru cevap, açıklama ve medya
+  ayrıntılarını taşıyabilir.
 
 # Study Plan / User Stats
 GET    /stats/daily-plan                       ← kullanıcı: günlük çalışma planı

@@ -134,7 +134,8 @@ Category {
 Question {
   _id, text, options[], correctAnswer (index),
   testType (short_test|mock_exam|real_exam|exam),
-  subject (B: trafik|ilkyardim|motor|adabi; İş Makinesi: isg|operator|trafik|motor|adabi|''),
+  subject (B: trafik|ilkyardim|motor|adabi; İş Makinesi:
+  operator_isg|operator_machines|operator_transport|operator_ethics|''),
   media (URL), explanation,
   difficulty (easy|medium|hard), coefficient,
   category (ref), exam (ref),
@@ -145,12 +146,34 @@ Question {
 
 Exam {
   _id, name, description, duration (dk), categoryId,
-  isPro, isActive, isMiniTest, testType (short_test|mock_exam|real_exam|exam), order
+  isPro, isActive, isPublished, isMiniTest,
+  testType (short_test|mock_exam|real_exam|exam),
+  passingScore (0..100, varsayılan 70), order
 }
 
-- Yeni sınav kaydı için admin iş bölümü: `real_exam` yalnızca Sınav Yönetimi; `mock_exam` İçerik > Deneme; `short_test` İçerik > Kısa Test.
+- Yeni sınav kaydı için Flutter admin iş bölümü: `real_exam` Sınav Yönetimi;
+  `mock_exam` İçerik > Deneme; `short_test` İçerik > Kısa Test. React admin bu üç
+  türü tek Sınav Yönetimi route'undaki Kısa Test / Deneme / Gerçek Sınav alt
+  görünümlerinde yönetir. Kısa test hiçbir platformda ayrı `Exam` kaydı oluşturmaz;
+  yaprak konuya bağlı `Question.category` grubu testtir.
 - Gerçek sınav/deneme ana kategorisi yalnızca B Sınıfı veya İş Makinesi/Operatör/İSG kökü olabilir.
 - Branş etiketi sınavın kategori üst zincirinden türetilir; İş Makinesi sınavında B Sınıfı branş etiketleri kullanılmaz.
+- Yeni sınavda kategori zorunludur. Süre 1–180 dakika, geçme notu 0–100
+  aralığında doğrulanır. Süre verilmezse B Sınıfı 45, İş Makinesi 50 dakikadır.
+- Sınav aktif kategoriye bağlı değilse veya kendi `testType` değerinde aktif sorusu
+  yoksa yayınlanamaz. Public kullanıcı yalnızca aktif ve yayınlanmış sınavı okuyabilir.
+- Sınav silme soft-delete davranışıdır: sınav ve bağlı aktif sorular pasife alınır;
+  geçmiş `ExamResult` referansları korunur.
+
+Question bağlantı değişmezleri:
+
+- `short_test`: aktif yaprak `category` zorunlu, ayrı `exam` kullanılmaz.
+- `mock_exam|real_exam|exam`: aktif `exam` zorunlu ve soru/sınav `testType`
+  değerleri birebir eşleşmelidir.
+- Yeni soruda en az iki seçenek bulunmalı; `correctAnswer` sıfır tabanlı geçerli
+  `options[]` indeksi olmalıdır.
+- Deneme ve gerçek sınav soruları kullanıcı oturumu başlarken istemci tarafında
+  karıştırılır; veritabanı sırası cevap ezberine dönüşmez.
 
 ExamResult {
   _id, user (ref), examId, examName, testType,
@@ -162,6 +185,11 @@ ExamResult {
 
 - `score` yüzde olarak tutulur (`correctCount / totalQuestions * 100`), ondalıklı olabilir; admin ve kullanıcı ekranları bunu `num/double` olarak okumalıdır.
 - Eski sonuçlarda doğru cevap alanı `correctAnswers` adıyla gelebilir; backend/UI katmanları `correctCount` öncelikli, legacy fallback destekli olmalıdır.
+- `examId` içeren sonuçta backend aktif sınavı yeniden okur; `examName`, kategori,
+  `testType` ve `passingScore` için sınav kaydı otoritedir. İstemcinin geçti/kaldı
+  kararı tek başına güvenilir kabul edilmez.
+- `passed`, sınavın `passingScore` değerine göre hesaplanır. `duration` sonuçta
+  saniye, `Exam.duration` alanında dakika cinsindedir.
 
 WrongAnswer {
   _id, user (ref), questionId, questionText,
